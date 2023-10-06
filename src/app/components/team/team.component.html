@@ -1,0 +1,24 @@
+<div>
+  <h1>Rosters</h1>
+  <div class="flex">
+  <mat-form-field appearance="fill">
+      <mat-label>Select a team</mat-label>
+      <mat-select [(value)]="selected" (selectionChange)="onRosterChange($event)">
+        <mat-option *ngFor="let roster of rosterOptions" [value]="roster">{{roster.name}}</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  <div class="toggle-container">
+    <mat-label>{{ rosterViewToggle ? 'Show Rosters' : 'Show Fantasy Stats' }}</mat-label>
+    <mat-slide-toggle [(ngModel)]="rosterViewToggle" (change)="onViewToggleChange()">
+    </mat-slide-toggle>
+  </div>
+</div>
+
+
+  <app-crud-table [hidden]="rosterViewToggle"
+  [tableData]="displayedData" [tableColumns]="visibleColumns">
+  </app-crud-table>
+
+  <app-players [hasFooter]="true" [hidden]="!rosterViewToggle" [source]="'team'" (dataSourceChangeEvent)="dataSourceChangeEvent()"></app-players>
+</div>

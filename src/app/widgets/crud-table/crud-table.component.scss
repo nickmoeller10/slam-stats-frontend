@@ -1,0 +1,75 @@
+  .table-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  tr.mat-header-row {
+    height: 46px;
+  }
+  
+  
+  td.mat-cell, td.mat-footer-cell {
+    text-align: center;
+    padding: 0.25rem !important;
+    word-wrap: break-word;
+    font-size: 14px;
+    color: black;
+    border-right: 1px solid #CCCCCC;
+    height: 30px;
+  }
+  
+  
+  .mat-row:nth-child(even){
+    background-color: #EEEEEE;
+  }
+  
+  
+  th.mat-header-cell {
+    text-align: center;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+    word-wrap: break-word;
+    font-size: 16px;
+    color: black;
+    background-color: #DDDDDD;
+    border-right: 1px solid #CCCCCC;
+  }
+  
+  
+  .filter {
+    width: 25%;
+  }
+  
+  
+  mat-label {
+    font-size: 12px;
+  }
+
+  
+  //Used to override the mat-sort-header-container - do not remove
+  :host ::ng-deep .mat-sort-header-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  :host ::ng-deep .mat-sort-header-arrow {
+    display: none;
+  }
+
+  .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    margin-bottom: -1.25em;
+  }
+  
+  
+  table{
+    width: 100%;
+   }
+  
+  
+  .mat-row {
+    height: 30px;
+  }
+  

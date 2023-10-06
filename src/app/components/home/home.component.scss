@@ -1,0 +1,28 @@
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+
+  .btn {
+    color: white;
+    background-color: blue;
+  }
+
+  .image-container img{
+    max-width: 100%; /* Set the maximum width */
+    max-height: 500px; /* Set the maximum height */
+    padding: 0.5rem;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .card {
+    padding-bottom: 1rem;
+  }

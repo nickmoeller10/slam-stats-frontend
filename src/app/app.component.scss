@@ -1,0 +1,104 @@
+mat-toolbar {
+    // background: #002b5c;
+    // color: white;
+    background-color: white;
+    color: black;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    align-items: center;
+}
+
+.links {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.menu {
+    margin-right: 8px;
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+
+mat-sidenav {
+    margin: 16px;
+    width: 200px;
+    border-right: none;
+    background: white;
+    color: black;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+}
+mat-divider {
+    padding-top: 2px;
+    background-color: rgba(255,255,255,0.5);
+}
+
+mat-sidenav-content {
+    background-color: white;
+}
+
+
+.avatar {
+    height: 50px;
+    width: 73.5px;
+}
+
+
+.content {
+    padding: 2rem;
+    //height: 100%;
+}
+
+
+mat-sidenav-container {
+    height: calc(100vh - 65px);
+}
+
+
+.menu-button, h1 {
+    //width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 1rem;
+    //background: #002b5c;
+    background-color: white;
+    color: black;
+    border: none;
+
+    mat-icon {
+        margin-right: 8px;
+    }
+}
+
+
+a {
+    text-decoration: none !important;
+  }
+
+
+
+/* Footer Styles */
+.footer {
+    background-color: #333; /* Background color for the footer */
+    color: #fff; /* Text color */
+    padding: 10px 0; /* Padding to add space inside the footer */
+    text-align: center; /* Center-align text */
+    font-size: 14px; /* Font size */
+    height: 65px;
+  }
+
+  .footer-text {
+    margin-top: 22.5px;
+  }
