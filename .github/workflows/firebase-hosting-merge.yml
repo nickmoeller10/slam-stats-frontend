@@ -15,18 +15,14 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.21.3
-          
       - name: Install Firebase CLI
-      - run: npm install -g firebase-tools@9.23.0
-
+        run: npm install -g firebase-tools@9.23.0
       - name: Install project dependencies
-      - run: npm ci
-
+        run: npm ci
       - name: Build project
-      - run: npm run build
-
+        run: npm run build
       - name: Deploy to Firebase Hosting
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SLAM_STATS }}'
