@@ -27,8 +27,10 @@ export class LeagueService {
         localStorage.setItem('season', data.season);
         localStorage.setItem('swid', data.swid);
         localStorage.setItem('espnS2', data.espn_s2);
-        this.allPlayers = response.players_info;
-        localStorage.setItem('players_info', response.players_info)
+
+        // Store all player data locally
+       // this.allPlayers = response.players_info;
+        //localStorage.setItem('allPlayers', JSON.stringify(this.allPlayers));
         return {response};
       })
     );

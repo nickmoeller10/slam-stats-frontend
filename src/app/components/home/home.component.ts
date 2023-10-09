@@ -64,7 +64,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.getPlayers();
     //this.getFantasyStatTitles();
     this.initColumns();
     this.generateLeague(false);
@@ -125,14 +124,6 @@ export class HomeComponent implements OnInit {
     getFantasyStatTitles() {
       return this.playerService.getFantasyStatTitles().subscribe(res => {
         this.fantasyStatTitles =  res;
-      });
-    }
-
-
-    getPlayers() {
-      return this.playerService.getPlayerInfo().subscribe(res => {
-        //this.playerInfo =  res;
-        //this.playersList = createPlayerModel(this.playerInfo);
       });
     }
 

@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PlayerContainer } from '../models/player-container.model';
 import { FantasyStats } from '../models/fantasy-stats.model';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,14 @@ export class PlayerService {
     return players;
   }
 
+//   getPlayerInfo(page: number, pageSize: number): Observable<{ data: PlayerContainer[], totalItems: number }> {
+//     const params = new HttpParams()
+//         .set('page', page.toString())
+//         .set('pageSize', pageSize.toString());
+
+//     const players = this.httpClient.get<{data: PlayerContainer[], totalItems: number}>(this.root + 'player-info', { params });
+//     return players;
+// }
 
   getLeagueInfo(): Observable<string[]> {
     const players = this.httpClient.get<string[]>(this.root+'league');
