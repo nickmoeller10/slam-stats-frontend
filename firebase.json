@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist",
+    "public": "dist/fantasy-basketball-trade-tool",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "fantasy-basketball-trade-tool/index.html"
+        "destination": "/index.html"
       }
     ]
   }
