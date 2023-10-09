@@ -406,623 +406,623 @@ export class PlayersComponent implements OnInit {
 
 
   getPlayers() {
-    return this.playerService.getPlayerInfo().subscribe(res => {
-      //TOTALS
-      const playerRankingsListCurr: PlayerRanking[] = [];
-      const playerRankingsList7: PlayerRanking[] = [];
-      const playerRankingsList15: PlayerRanking[] = [];
-      const playerRankingsList30: PlayerRanking[] = [];
-      const playerRankingsListProj: PlayerRanking[] = [];
-      const playerRankingsListPrev: PlayerRanking[] = [];
-      const playerRankingsListPrevProj: PlayerRanking[] = [];
+    // No longer need to call API
+    //TOTALS
+    const playerRankingsListCurr: PlayerRanking[] = [];
+    const playerRankingsList7: PlayerRanking[] = [];
+    const playerRankingsList15: PlayerRanking[] = [];
+    const playerRankingsList30: PlayerRanking[] = [];
+    const playerRankingsListProj: PlayerRanking[] = [];
+    const playerRankingsListPrev: PlayerRanking[] = [];
+    const playerRankingsListPrevProj: PlayerRanking[] = [];
 
 
-      //AVERAGES
-      const playerAvgRankingsListCurr: PlayerRanking[] = [];
-      const playerAvgRankingsList7: PlayerRanking[] = [];
-      const playerAvgRankingsList15: PlayerRanking[] = [];
-      const playerAvgRankingsList30: PlayerRanking[] = [];
-      const playerAvgRankingsListProj: PlayerRanking[] = [];
-      const playerAvgRankingsListPrev: PlayerRanking[] = [];
-      const playerAvgRankingsListPrevProj: PlayerRanking[] = [];
+    //AVERAGES
+    const playerAvgRankingsListCurr: PlayerRanking[] = [];
+    const playerAvgRankingsList7: PlayerRanking[] = [];
+    const playerAvgRankingsList15: PlayerRanking[] = [];
+    const playerAvgRankingsList30: PlayerRanking[] = [];
+    const playerAvgRankingsListProj: PlayerRanking[] = [];
+    const playerAvgRankingsListPrev: PlayerRanking[] = [];
+    const playerAvgRankingsListPrevProj: PlayerRanking[] = [];
 
 
-      res.forEach(entry => {
-        // Removes all players that do not have relevant stats
-        if (entry.ratings?.ratingsCurr.totalRanking != null && entry.ratings?.ratingsCurr.totalRanking !== 0) {
-          if (entry.player?.statContainer?.currentSeason) {
-            const playerRankingCurr: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.currentSeason.stats[0],
-              blocks: entry.player?.statContainer?.currentSeason.stats[1],
-              steals: entry.player?.statContainer?.currentSeason.stats[2],
-              assists: entry.player?.statContainer?.currentSeason.stats[3],
-              offensiveRebounds: entry.player?.statContainer?.currentSeason.stats[4],
-              defensiveRebounds: entry.player?.statContainer?.currentSeason.stats[5],
-              rebounds: entry.player?.statContainer?.currentSeason.stats[6],
-              ejections: entry.player?.statContainer?.currentSeason.stats[7],
-              flagrantFouls: entry.player?.statContainer?.currentSeason.stats[8],
-              personalFouls: entry.player?.statContainer?.currentSeason.stats[9],
-              technicalFouls: entry.player?.statContainer?.currentSeason.stats[10],
-              turnovers: entry.player?.statContainer?.currentSeason.stats[11],
-              idk: entry.player?.statContainer?.currentSeason.stats[12],
-              fieldGoalsMade: entry.player?.statContainer?.currentSeason.stats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.currentSeason.stats[14],
-              freeThrowsMade: entry.player?.statContainer?.currentSeason.stats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.currentSeason.stats[16],
-              threePointersMade: entry.player?.statContainer?.currentSeason.stats[17],
-              threePointersAttempted: entry.player?.statContainer?.currentSeason.stats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.currentSeason.stats[19],
-              freeThrowPercentage: entry.player?.statContainer?.currentSeason.stats[20],
-              threePointPercentage: entry.player?.statContainer?.currentSeason.stats[21],
-              minutesPerGame: entry.player?.statContainer?.currentSeason.stats[28],
-              gamesPlayed: entry.player?.statContainer?.currentSeason.stats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerRankingsListCurr.push(playerRankingCurr);
+    this.leagueService.allPlayers.forEach(entry => {
+      // Removes all players that do not have relevant stats
+      if (entry.ratings?.ratingsCurr.totalRanking != null && entry.ratings?.ratingsCurr.totalRanking !== 0) {
+        if (entry.player?.statContainer?.currentSeason) {
+          const playerRankingCurr: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
+            totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+            totalRating: entry.ratings?.ratingsCurr.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.currentSeason.stats[0],
+            blocks: entry.player?.statContainer?.currentSeason.stats[1],
+            steals: entry.player?.statContainer?.currentSeason.stats[2],
+            assists: entry.player?.statContainer?.currentSeason.stats[3],
+            offensiveRebounds: entry.player?.statContainer?.currentSeason.stats[4],
+            defensiveRebounds: entry.player?.statContainer?.currentSeason.stats[5],
+            rebounds: entry.player?.statContainer?.currentSeason.stats[6],
+            ejections: entry.player?.statContainer?.currentSeason.stats[7],
+            flagrantFouls: entry.player?.statContainer?.currentSeason.stats[8],
+            personalFouls: entry.player?.statContainer?.currentSeason.stats[9],
+            technicalFouls: entry.player?.statContainer?.currentSeason.stats[10],
+            turnovers: entry.player?.statContainer?.currentSeason.stats[11],
+            idk: entry.player?.statContainer?.currentSeason.stats[12],
+            fieldGoalsMade: entry.player?.statContainer?.currentSeason.stats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.currentSeason.stats[14],
+            freeThrowsMade: entry.player?.statContainer?.currentSeason.stats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.currentSeason.stats[16],
+            threePointersMade: entry.player?.statContainer?.currentSeason.stats[17],
+            threePointersAttempted: entry.player?.statContainer?.currentSeason.stats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.currentSeason.stats[19],
+            freeThrowPercentage: entry.player?.statContainer?.currentSeason.stats[20],
+            threePointPercentage: entry.player?.statContainer?.currentSeason.stats[21],
+            minutesPerGame: entry.player?.statContainer?.currentSeason.stats[28],
+            gamesPlayed: entry.player?.statContainer?.currentSeason.stats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
           }
-
-
-          if (entry.player?.statContainer?.lastFifteen) {
-            const playerRanking15: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsPrev15.positionalRanking,
-              totalRanking: entry.ratings?.ratingsPrev15.totalRanking,
-              totalRating: entry.ratings?.ratingsPrev15.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.lastFifteen.stats[0],
-              blocks: entry.player?.statContainer?.lastFifteen.stats[1],
-              steals: entry.player?.statContainer?.lastFifteen.stats[2],
-              assists: entry.player?.statContainer?.lastFifteen.stats[3],
-              offensiveRebounds: entry.player?.statContainer?.lastFifteen.stats[4],
-              defensiveRebounds: entry.player?.statContainer?.lastFifteen.stats[5],
-              rebounds: entry.player?.statContainer?.lastFifteen.stats[6],
-              ejections: entry.player?.statContainer?.lastFifteen.stats[7],
-              flagrantFouls: entry.player?.statContainer?.lastFifteen.stats[8],
-              personalFouls: entry.player?.statContainer?.lastFifteen.stats[9],
-              technicalFouls: entry.player?.statContainer?.lastFifteen.stats[10],
-              turnovers: entry.player?.statContainer?.lastFifteen.stats[11],
-              idk: entry.player?.statContainer?.lastFifteen.stats[12],
-              fieldGoalsMade: entry.player?.statContainer?.lastFifteen.stats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.lastFifteen.stats[14],
-              freeThrowsMade: entry.player?.statContainer?.lastFifteen.stats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.lastFifteen.stats[16],
-              threePointersMade: entry.player?.statContainer?.lastFifteen.stats[17],
-              threePointersAttempted: entry.player?.statContainer?.lastFifteen.stats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.lastFifteen.stats[19],
-              freeThrowPercentage: entry.player?.statContainer?.lastFifteen.stats[20],
-              threePointPercentage: entry.player?.statContainer?.lastFifteen.stats[21],
-              minutesPerGame: entry.player?.statContainer?.lastFifteen.stats[28],
-              gamesPlayed: entry.player?.statContainer?.lastFifteen.stats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerRankingsList15.push(playerRanking15);
-          }
-
-
-          if (entry.player?.statContainer?.lastSeven?.averageStats) {
-            const playerRanking7: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsPrev7.positionalRanking,
-              totalRanking: entry.ratings?.ratingsPrev7.totalRanking,
-              totalRating: entry.ratings?.ratingsPrev7.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.lastSeven.stats[0],
-              blocks: entry.player?.statContainer?.lastSeven.stats[1],
-              steals: entry.player?.statContainer?.lastSeven.stats[2],
-              assists: entry.player?.statContainer?.lastSeven.stats[3],
-              offensiveRebounds: entry.player?.statContainer?.lastSeven.stats[4],
-              defensiveRebounds: entry.player?.statContainer?.lastSeven.stats[5],
-              rebounds: entry.player?.statContainer?.lastSeven.stats[6],
-              ejections: entry.player?.statContainer?.lastSeven.stats[7],
-              flagrantFouls: entry.player?.statContainer?.lastSeven.stats[8],
-              personalFouls: entry.player?.statContainer?.lastSeven.stats[9],
-              technicalFouls: entry.player?.statContainer?.lastSeven.stats[10],
-              turnovers: entry.player?.statContainer?.lastSeven.stats[11],
-              idk: entry.player?.statContainer?.lastSeven.stats[12],
-              fieldGoalsMade: entry.player?.statContainer?.lastSeven.stats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.lastSeven.stats[14],
-              freeThrowsMade: entry.player?.statContainer?.lastSeven.stats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.lastSeven.stats[16],
-              threePointersMade: entry.player?.statContainer?.lastSeven.stats[17],
-              threePointersAttempted: entry.player?.statContainer?.lastSeven.stats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.lastSeven.stats[19],
-              freeThrowPercentage: entry.player?.statContainer?.lastSeven.stats[20],
-              threePointPercentage: entry.player?.statContainer?.lastSeven.stats[21],
-              minutesPerGame: entry.player?.statContainer?.lastSeven.stats[28],
-              gamesPlayed: entry.player?.statContainer?.lastSeven.stats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerRankingsList7.push(playerRanking7);
-          }
-
-
-          if (entry.player?.statContainer?.prevSeason) {
-            const playerRankingPrev: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.prevSeason.stats[0],
-              blocks: entry.player?.statContainer?.prevSeason.stats[1],
-              steals: entry.player?.statContainer?.prevSeason.stats[2],
-              assists: entry.player?.statContainer?.prevSeason.stats[3],
-              offensiveRebounds: entry.player?.statContainer?.prevSeason.stats[4],
-              defensiveRebounds: entry.player?.statContainer?.prevSeason.stats[5],
-              rebounds: entry.player?.statContainer?.prevSeason.stats[6],
-              ejections: entry.player?.statContainer?.prevSeason.stats[7],
-              flagrantFouls: entry.player?.statContainer?.prevSeason.stats[8],
-              personalFouls: entry.player?.statContainer?.prevSeason.stats[9],
-              technicalFouls: entry.player?.statContainer?.prevSeason.stats[10],
-              turnovers: entry.player?.statContainer?.prevSeason.stats[11],
-              idk: entry.player?.statContainer?.prevSeason.stats[12],
-              fieldGoalsMade: entry.player?.statContainer?.prevSeason.stats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.prevSeason.stats[14],
-              freeThrowsMade: entry.player?.statContainer?.prevSeason.stats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.prevSeason.stats[16],
-              threePointersMade: entry.player?.statContainer?.prevSeason.stats[17],
-              threePointersAttempted: entry.player?.statContainer?.prevSeason.stats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.prevSeason.stats[19],
-              freeThrowPercentage: entry.player?.statContainer?.prevSeason.stats[20],
-              threePointPercentage: entry.player?.statContainer?.prevSeason.stats[21],
-              minutesPerGame: entry.player?.statContainer?.prevSeason.stats[28],
-              gamesPlayed: entry.player?.statContainer?.prevSeason.stats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerRankingsListPrev.push(playerRankingPrev);
-          }
-
-
-          if (entry.player?.statContainer?.lastThirty) {
-            const playerRanking30: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsPrev30.positionalRanking,
-              totalRanking: entry.ratings?.ratingsPrev30.totalRanking,
-              totalRating: entry.ratings?.ratingsPrev30.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.lastThirty.stats[0],
-              blocks: entry.player?.statContainer?.lastThirty.stats[1],
-              steals: entry.player?.statContainer?.lastThirty.stats[2],
-              assists: entry.player?.statContainer?.lastThirty.stats[3],
-              offensiveRebounds: entry.player?.statContainer?.lastThirty.stats[4],
-              defensiveRebounds: entry.player?.statContainer?.lastThirty.stats[5],
-              rebounds: entry.player?.statContainer?.lastThirty.stats[6],
-              ejections: entry.player?.statContainer?.lastThirty.stats[7],
-              flagrantFouls: entry.player?.statContainer?.lastThirty.stats[8],
-              personalFouls: entry.player?.statContainer?.lastThirty.stats[9],
-              technicalFouls: entry.player?.statContainer?.lastThirty.stats[10],
-              turnovers: entry.player?.statContainer?.lastThirty.stats[11],
-              idk: entry.player?.statContainer?.lastThirty.stats[12],
-              fieldGoalsMade: entry.player?.statContainer?.lastThirty.stats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.lastThirty.stats[14],
-              freeThrowsMade: entry.player?.statContainer?.lastThirty.stats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.lastThirty.stats[16],
-              threePointersMade: entry.player?.statContainer?.lastThirty.stats[17],
-              threePointersAttempted: entry.player?.statContainer?.lastThirty.stats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.lastThirty.stats[19],
-              freeThrowPercentage: entry.player?.statContainer?.lastThirty.stats[20],
-              threePointPercentage: entry.player?.statContainer?.lastThirty.stats[21],
-              minutesPerGame: entry.player?.statContainer?.lastThirty.stats[28],
-              gamesPlayed: entry.player?.statContainer?.lastThirty.stats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerRankingsList30.push(playerRanking30);
-          }
-          if (entry.player?.statContainer?.seasonProjections) {
-            const playerRankingProj: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.seasonProjections.stats[0],
-              blocks: entry.player?.statContainer?.seasonProjections.stats[1],
-              steals: entry.player?.statContainer?.seasonProjections.stats[2],
-              assists: entry.player?.statContainer?.seasonProjections.stats[3],
-              offensiveRebounds: entry.player?.statContainer?.seasonProjections.stats[4],
-              defensiveRebounds: entry.player?.statContainer?.seasonProjections.stats[5],
-              rebounds: entry.player?.statContainer?.seasonProjections.stats[6],
-              ejections: entry.player?.statContainer?.seasonProjections.stats[7],
-              flagrantFouls: entry.player?.statContainer?.seasonProjections.stats[8],
-              personalFouls: entry.player?.statContainer?.seasonProjections.stats[9],
-              technicalFouls: entry.player?.statContainer?.seasonProjections.stats[10],
-              turnovers: entry.player?.statContainer?.seasonProjections.stats[11],
-              idk: entry.player?.statContainer?.seasonProjections.stats[12],
-              fieldGoalsMade: entry.player?.statContainer?.seasonProjections.stats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.seasonProjections.stats[14],
-              freeThrowsMade: entry.player?.statContainer?.seasonProjections.stats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.seasonProjections.stats[16],
-              threePointersMade: entry.player?.statContainer?.seasonProjections.stats[17],
-              threePointersAttempted: entry.player?.statContainer?.seasonProjections.stats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.seasonProjections.stats[19],
-              freeThrowPercentage: entry.player?.statContainer?.seasonProjections.stats[20],
-              threePointPercentage: entry.player?.statContainer?.seasonProjections.stats[21],
-              minutesPerGame: entry.player?.statContainer?.seasonProjections.stats[28],
-              gamesPlayed: entry.player?.statContainer?.seasonProjections.stats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerRankingsListProj.push(playerRankingProj);
-          }
-
-
-          if (entry.player?.statContainer?.prevSeasonProjections) {
-            const playerRankingPrevProj: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.prevSeasonProjections.stats[0],
-              blocks: entry.player?.statContainer?.prevSeasonProjections.stats[1],
-              steals: entry.player?.statContainer?.prevSeasonProjections.stats[2],
-              assists: entry.player?.statContainer?.prevSeasonProjections.stats[3],
-              offensiveRebounds: entry.player?.statContainer?.prevSeasonProjections.stats[4],
-              defensiveRebounds: entry.player?.statContainer?.prevSeasonProjections.stats[5],
-              rebounds: entry.player?.statContainer?.prevSeasonProjections.stats[6],
-              ejections: entry.player?.statContainer?.prevSeasonProjections.stats[7],
-              flagrantFouls: entry.player?.statContainer?.prevSeasonProjections.stats[8],
-              personalFouls: entry.player?.statContainer?.prevSeasonProjections.stats[9],
-              technicalFouls: entry.player?.statContainer?.prevSeasonProjections.stats[10],
-              turnovers: entry.player?.statContainer?.prevSeasonProjections.stats[11],
-              idk: entry.player?.statContainer?.prevSeasonProjections.stats[12],
-              fieldGoalsMade: entry.player?.statContainer?.prevSeasonProjections.stats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.prevSeasonProjections.stats[14],
-              freeThrowsMade: entry.player?.statContainer?.prevSeasonProjections.stats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.prevSeasonProjections.stats[16],
-              threePointersMade: entry.player?.statContainer?.prevSeasonProjections.stats[17],
-              threePointersAttempted: entry.player?.statContainer?.prevSeasonProjections.stats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.prevSeasonProjections.stats[19],
-              freeThrowPercentage: entry.player?.statContainer?.prevSeasonProjections.stats[20],
-              threePointPercentage: entry.player?.statContainer?.prevSeasonProjections.stats[21],
-              minutesPerGame: entry.player?.statContainer?.prevSeasonProjections.stats[28],
-              gamesPlayed: entry.player?.statContainer?.prevSeasonProjections.stats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerRankingsListPrevProj.push(playerRankingPrevProj);
-          }
-
-
-          // AVERAGES
-          if (entry.player?.statContainer?.currentSeason?.averageStats) {
-            const playerAvgRankingCurr: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.currentSeason.averageStats[0],
-              blocks: entry.player?.statContainer?.currentSeason.averageStats[1],
-              steals: entry.player?.statContainer?.currentSeason.averageStats[2],
-              assists: entry.player?.statContainer?.currentSeason.averageStats[3],
-              offensiveRebounds: entry.player?.statContainer?.currentSeason.averageStats[4],
-              defensiveRebounds: entry.player?.statContainer?.currentSeason.averageStats[5],
-              rebounds: entry.player?.statContainer?.currentSeason.averageStats[6],
-              ejections: entry.player?.statContainer?.currentSeason.averageStats[7],
-              flagrantFouls: entry.player?.statContainer?.currentSeason.averageStats[8],
-              personalFouls: entry.player?.statContainer?.currentSeason.averageStats[9],
-              technicalFouls: entry.player?.statContainer?.currentSeason.averageStats[10],
-              turnovers: entry.player?.statContainer?.currentSeason.averageStats[11],
-              idk: entry.player?.statContainer?.currentSeason.averageStats[12],
-              fieldGoalsMade: entry.player?.statContainer?.currentSeason.averageStats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.currentSeason.averageStats[14],
-              freeThrowsMade: entry.player?.statContainer?.currentSeason.averageStats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.currentSeason.averageStats[16],
-              threePointersMade: entry.player?.statContainer?.currentSeason.averageStats[17],
-              threePointersAttempted: entry.player?.statContainer?.currentSeason.averageStats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.currentSeason.averageStats[19],
-              freeThrowPercentage: entry.player?.statContainer?.currentSeason.averageStats[20],
-              threePointPercentage: entry.player?.statContainer?.currentSeason.averageStats[21],
-              minutesPerGame: entry.player?.statContainer?.currentSeason.averageStats[28],
-              gamesPlayed: entry.player?.statContainer?.currentSeason.averageStats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerAvgRankingsListCurr.push(playerAvgRankingCurr);
-          }
-
-
-          if (entry.player?.statContainer?.lastFifteen?.averageStats) {
-            const playerAvgRanking15: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsPrev15.positionalRanking,
-              totalRanking: entry.ratings?.ratingsPrev15.totalRanking,
-              totalRating: entry.ratings?.ratingsPrev15.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.lastFifteen.averageStats[0],
-              blocks: entry.player?.statContainer?.lastFifteen.averageStats[1],
-              steals: entry.player?.statContainer?.lastFifteen.averageStats[2],
-              assists: entry.player?.statContainer?.lastFifteen.averageStats[3],
-              offensiveRebounds: entry.player?.statContainer?.lastFifteen.averageStats[4],
-              defensiveRebounds: entry.player?.statContainer?.lastFifteen.averageStats[5],
-              rebounds: entry.player?.statContainer?.lastFifteen.averageStats[6],
-              ejections: entry.player?.statContainer?.lastFifteen.averageStats[7],
-              flagrantFouls: entry.player?.statContainer?.lastFifteen.averageStats[8],
-              personalFouls: entry.player?.statContainer?.lastFifteen.averageStats[9],
-              technicalFouls: entry.player?.statContainer?.lastFifteen.averageStats[10],
-              turnovers: entry.player?.statContainer?.lastFifteen.averageStats[11],
-              idk: entry.player?.statContainer?.lastFifteen.averageStats[12],
-              fieldGoalsMade: entry.player?.statContainer?.lastFifteen.averageStats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.lastFifteen.averageStats[14],
-              freeThrowsMade: entry.player?.statContainer?.lastFifteen.averageStats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.lastFifteen.averageStats[16],
-              threePointersMade: entry.player?.statContainer?.lastFifteen.averageStats[17],
-              threePointersAttempted: entry.player?.statContainer?.lastFifteen.averageStats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.lastFifteen.averageStats[19],
-              freeThrowPercentage: entry.player?.statContainer?.lastFifteen.averageStats[20],
-              threePointPercentage: entry.player?.statContainer?.lastFifteen.averageStats[21],
-              minutesPerGame: entry.player?.statContainer?.lastFifteen.averageStats[28],
-              gamesPlayed: entry.player?.statContainer?.lastFifteen.averageStats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerAvgRankingsList15.push(playerAvgRanking15);
-          }
-
-
-          if (entry.player?.statContainer?.lastSeven?.averageStats) {
-            const playerAvgRanking7: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsPrev7.positionalRanking,
-              totalRanking: entry.ratings?.ratingsPrev7.totalRanking,
-              totalRating: entry.ratings?.ratingsPrev7.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.lastSeven.averageStats[0],
-              blocks: entry.player?.statContainer?.lastSeven.averageStats[1],
-              steals: entry.player?.statContainer?.lastSeven.averageStats[2],
-              assists: entry.player?.statContainer?.lastSeven.averageStats[3],
-              offensiveRebounds: entry.player?.statContainer?.lastSeven.averageStats[4],
-              defensiveRebounds: entry.player?.statContainer?.lastSeven.averageStats[5],
-              rebounds: entry.player?.statContainer?.lastSeven.averageStats[6],
-              ejections: entry.player?.statContainer?.lastSeven.averageStats[7],
-              flagrantFouls: entry.player?.statContainer?.lastSeven.averageStats[8],
-              personalFouls: entry.player?.statContainer?.lastSeven.averageStats[9],
-              technicalFouls: entry.player?.statContainer?.lastSeven.averageStats[10],
-              turnovers: entry.player?.statContainer?.lastSeven.averageStats[11],
-              idk: entry.player?.statContainer?.lastSeven.averageStats[12],
-              fieldGoalsMade: entry.player?.statContainer?.lastSeven.averageStats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.lastSeven.averageStats[14],
-              freeThrowsMade: entry.player?.statContainer?.lastSeven.averageStats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.lastSeven.averageStats[16],
-              threePointersMade: entry.player?.statContainer?.lastSeven.averageStats[17],
-              threePointersAttempted: entry.player?.statContainer?.lastSeven.averageStats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.lastSeven.averageStats[19],
-              freeThrowPercentage: entry.player?.statContainer?.lastSeven.averageStats[20],
-              threePointPercentage: entry.player?.statContainer?.lastSeven.averageStats[21],
-              minutesPerGame: entry.player?.statContainer?.lastSeven.averageStats[28],
-              gamesPlayed: entry.player?.statContainer?.lastSeven.averageStats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerAvgRankingsList7.push(playerAvgRanking7);
-          }
-
-
-          if (entry.player?.statContainer?.prevSeason?.averageStats) {
-            const playerAvgRankingPrev: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.prevSeason.averageStats[0],
-              blocks: entry.player?.statContainer?.prevSeason.averageStats[1],
-              steals: entry.player?.statContainer?.prevSeason.averageStats[2],
-              assists: entry.player?.statContainer?.prevSeason.averageStats[3],
-              offensiveRebounds: entry.player?.statContainer?.prevSeason.averageStats[4],
-              defensiveRebounds: entry.player?.statContainer?.prevSeason.averageStats[5],
-              rebounds: entry.player?.statContainer?.prevSeason.averageStats[6],
-              ejections: entry.player?.statContainer?.prevSeason.averageStats[7],
-              flagrantFouls: entry.player?.statContainer?.prevSeason.averageStats[8],
-              personalFouls: entry.player?.statContainer?.prevSeason.averageStats[9],
-              technicalFouls: entry.player?.statContainer?.prevSeason.averageStats[10],
-              turnovers: entry.player?.statContainer?.prevSeason.averageStats[11],
-              idk: entry.player?.statContainer?.prevSeason.averageStats[12],
-              fieldGoalsMade: entry.player?.statContainer?.prevSeason.averageStats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.prevSeason.averageStats[14],
-              freeThrowsMade: entry.player?.statContainer?.prevSeason.averageStats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.prevSeason.averageStats[16],
-              threePointersMade: entry.player?.statContainer?.prevSeason.averageStats[17],
-              threePointersAttempted: entry.player?.statContainer?.prevSeason.averageStats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.prevSeason.averageStats[19],
-              freeThrowPercentage: entry.player?.statContainer?.prevSeason.averageStats[20],
-              threePointPercentage: entry.player?.statContainer?.prevSeason.averageStats[21],
-              minutesPerGame: entry.player?.statContainer?.prevSeason.averageStats[28],
-              gamesPlayed: entry.player?.statContainer?.prevSeason.averageStats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerAvgRankingsListPrev.push(playerAvgRankingPrev);
-          }
-
-
-          if (entry.player?.statContainer?.lastThirty?.averageStats) {
-            const playerAvgRanking30: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsPrev30.positionalRanking,
-              totalRanking: entry.ratings?.ratingsPrev30.totalRanking,
-              totalRating: entry.ratings?.ratingsPrev30.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.lastThirty.averageStats[0],
-              blocks: entry.player?.statContainer?.lastThirty.averageStats[1],
-              steals: entry.player?.statContainer?.lastThirty.averageStats[2],
-              assists: entry.player?.statContainer?.lastThirty.averageStats[3],
-              offensiveRebounds: entry.player?.statContainer?.lastThirty.averageStats[4],
-              defensiveRebounds: entry.player?.statContainer?.lastThirty.averageStats[5],
-              rebounds: entry.player?.statContainer?.lastThirty.averageStats[6],
-              ejections: entry.player?.statContainer?.lastThirty.averageStats[7],
-              flagrantFouls: entry.player?.statContainer?.lastThirty.averageStats[8],
-              personalFouls: entry.player?.statContainer?.lastThirty.averageStats[9],
-              technicalFouls: entry.player?.statContainer?.lastThirty.averageStats[10],
-              turnovers: entry.player?.statContainer?.lastThirty.averageStats[11],
-              idk: entry.player?.statContainer?.lastThirty.averageStats[12],
-              fieldGoalsMade: entry.player?.statContainer?.lastThirty.averageStats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.lastThirty.averageStats[14],
-              freeThrowsMade: entry.player?.statContainer?.lastThirty.averageStats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.lastThirty.averageStats[16],
-              threePointersMade: entry.player?.statContainer?.lastThirty.averageStats[17],
-              threePointersAttempted: entry.player?.statContainer?.lastThirty.averageStats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.lastThirty.averageStats[19],
-              freeThrowPercentage: entry.player?.statContainer?.lastThirty.averageStats[20],
-              threePointPercentage: entry.player?.statContainer?.lastThirty.averageStats[21],
-              minutesPerGame: entry.player?.statContainer?.lastThirty.averageStats[28],
-              gamesPlayed: entry.player?.statContainer?.lastThirty.averageStats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerAvgRankingsList30.push(playerAvgRanking30);
-          }
-          if (entry.player?.statContainer?.seasonProjections?.averageStats) {
-            const playerAvgRankingProj: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.seasonProjections.averageStats[0],
-              blocks: entry.player?.statContainer?.seasonProjections.averageStats[1],
-              steals: entry.player?.statContainer?.seasonProjections.averageStats[2],
-              assists: entry.player?.statContainer?.seasonProjections.averageStats[3],
-              offensiveRebounds: entry.player?.statContainer?.seasonProjections.averageStats[4],
-              defensiveRebounds: entry.player?.statContainer?.seasonProjections.averageStats[5],
-              rebounds: entry.player?.statContainer?.seasonProjections.averageStats[6],
-              ejections: entry.player?.statContainer?.seasonProjections.averageStats[7],
-              flagrantFouls: entry.player?.statContainer?.seasonProjections.averageStats[8],
-              personalFouls: entry.player?.statContainer?.seasonProjections.averageStats[9],
-              technicalFouls: entry.player?.statContainer?.seasonProjections.averageStats[10],
-              turnovers: entry.player?.statContainer?.seasonProjections.averageStats[11],
-              idk: entry.player?.statContainer?.seasonProjections.averageStats[12],
-              fieldGoalsMade: entry.player?.statContainer?.seasonProjections.averageStats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.seasonProjections.averageStats[14],
-              freeThrowsMade: entry.player?.statContainer?.seasonProjections.averageStats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.seasonProjections.averageStats[16],
-              threePointersMade: entry.player?.statContainer?.seasonProjections.averageStats[17],
-              threePointersAttempted: entry.player?.statContainer?.seasonProjections.averageStats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.seasonProjections.averageStats[19],
-              freeThrowPercentage: entry.player?.statContainer?.seasonProjections.averageStats[20],
-              threePointPercentage: entry.player?.statContainer?.seasonProjections.averageStats[21],
-              minutesPerGame: entry.player?.statContainer?.seasonProjections.averageStats[28],
-              gamesPlayed: entry.player?.statContainer?.seasonProjections.averageStats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerAvgRankingsListProj.push(playerAvgRankingProj);
-          }
-
-
-          if (entry.player?.statContainer?.prevSeasonProjections?.averageStats) {
-            const playerAvgRankingPrevProj: PlayerRanking = {
-              id: entry.id,
-              onTeamId: entry.onTeamId,
-              proTeamId: entry.player?.proTeamId,
-              defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
-              fullName: entry.player?.fullName,
-              points: entry.player?.statContainer?.prevSeasonProjections.averageStats[0],
-              blocks: entry.player?.statContainer?.prevSeasonProjections.averageStats[1],
-              steals: entry.player?.statContainer?.prevSeasonProjections.averageStats[2],
-              assists: entry.player?.statContainer?.prevSeasonProjections.averageStats[3],
-              offensiveRebounds: entry.player?.statContainer?.prevSeasonProjections.averageStats[4],
-              defensiveRebounds: entry.player?.statContainer?.prevSeasonProjections.averageStats[5],
-              rebounds: entry.player?.statContainer?.prevSeasonProjections.averageStats[6],
-              ejections: entry.player?.statContainer?.prevSeasonProjections.averageStats[7],
-              flagrantFouls: entry.player?.statContainer?.prevSeasonProjections.averageStats[8],
-              personalFouls: entry.player?.statContainer?.prevSeasonProjections.averageStats[9],
-              technicalFouls: entry.player?.statContainer?.prevSeasonProjections.averageStats[10],
-              turnovers: entry.player?.statContainer?.prevSeasonProjections.averageStats[11],
-              idk: entry.player?.statContainer?.prevSeasonProjections.averageStats[12],
-              fieldGoalsMade: entry.player?.statContainer?.prevSeasonProjections.averageStats[13],
-              fieldGoalsAttempted: entry.player?.statContainer?.prevSeasonProjections.averageStats[14],
-              freeThrowsMade: entry.player?.statContainer?.prevSeasonProjections.averageStats[15],
-              freeThrowsAttempted: entry.player?.statContainer?.prevSeasonProjections.averageStats[16],
-              threePointersMade: entry.player?.statContainer?.prevSeasonProjections.averageStats[17],
-              threePointersAttempted: entry.player?.statContainer?.prevSeasonProjections.averageStats[18],
-              fieldGoalPercentage: entry.player?.statContainer?.prevSeasonProjections.averageStats[19],
-              freeThrowPercentage: entry.player?.statContainer?.prevSeasonProjections.averageStats[20],
-              threePointPercentage: entry.player?.statContainer?.prevSeasonProjections.averageStats[21],
-              minutesPerGame: entry.player?.statContainer?.prevSeasonProjections.averageStats[28],
-              gamesPlayed: entry.player?.statContainer?.prevSeasonProjections.averageStats[42],
-              adp: entry.player?.ownership?.averageDraftPosition,
-              eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-            }
-            playerAvgRankingsListPrevProj.push(playerAvgRankingPrevProj);
-          }
+          playerRankingsListCurr.push(playerRankingCurr);
         }
-      })
-      // TOTALS
-      this.playerRankingsDataCurr = playerRankingsListCurr;
-      this.playerRankingsData7 = playerRankingsList7;
-      this.playerRankingsData15 = playerRankingsList15;
-      this.playerRankingsData30 = playerRankingsList30;
-      this.playerRankingsDataPrev = playerRankingsListPrev;
-      this.playerRankingsDataProj = playerRankingsListProj;
-      this.playerRankingsDataPrevProj = playerRankingsListPrevProj;
 
 
-      // AVERAGES
-      this.playerAvgRankingsDataCurr = playerAvgRankingsListCurr;
-      this.playerAvgRankingsData7 = playerAvgRankingsList7;
-      this.playerAvgRankingsData15 = playerAvgRankingsList15;
-      this.playerAvgRankingsData30 = playerAvgRankingsList30;
-      this.playerAvgRankingsDataPrev = playerAvgRankingsListPrev;
-      this.playerAvgRankingsDataProj = playerAvgRankingsListProj;
-      this.playerAvgRankingsDataPrevProj = playerAvgRankingsListPrevProj;
+        if (entry.player?.statContainer?.lastFifteen) {
+          const playerRanking15: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsPrev15.positionalRanking,
+            totalRanking: entry.ratings?.ratingsPrev15.totalRanking,
+            totalRating: entry.ratings?.ratingsPrev15.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.lastFifteen.stats[0],
+            blocks: entry.player?.statContainer?.lastFifteen.stats[1],
+            steals: entry.player?.statContainer?.lastFifteen.stats[2],
+            assists: entry.player?.statContainer?.lastFifteen.stats[3],
+            offensiveRebounds: entry.player?.statContainer?.lastFifteen.stats[4],
+            defensiveRebounds: entry.player?.statContainer?.lastFifteen.stats[5],
+            rebounds: entry.player?.statContainer?.lastFifteen.stats[6],
+            ejections: entry.player?.statContainer?.lastFifteen.stats[7],
+            flagrantFouls: entry.player?.statContainer?.lastFifteen.stats[8],
+            personalFouls: entry.player?.statContainer?.lastFifteen.stats[9],
+            technicalFouls: entry.player?.statContainer?.lastFifteen.stats[10],
+            turnovers: entry.player?.statContainer?.lastFifteen.stats[11],
+            idk: entry.player?.statContainer?.lastFifteen.stats[12],
+            fieldGoalsMade: entry.player?.statContainer?.lastFifteen.stats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.lastFifteen.stats[14],
+            freeThrowsMade: entry.player?.statContainer?.lastFifteen.stats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.lastFifteen.stats[16],
+            threePointersMade: entry.player?.statContainer?.lastFifteen.stats[17],
+            threePointersAttempted: entry.player?.statContainer?.lastFifteen.stats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.lastFifteen.stats[19],
+            freeThrowPercentage: entry.player?.statContainer?.lastFifteen.stats[20],
+            threePointPercentage: entry.player?.statContainer?.lastFifteen.stats[21],
+            minutesPerGame: entry.player?.statContainer?.lastFifteen.stats[28],
+            gamesPlayed: entry.player?.statContainer?.lastFifteen.stats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerRankingsList15.push(playerRanking15);
+        }
 
-      this.displayedData = playerAvgRankingsListCurr;
-      this.cdr.detectChanges();
-    });
+
+        if (entry.player?.statContainer?.lastSeven?.averageStats) {
+          const playerRanking7: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsPrev7.positionalRanking,
+            totalRanking: entry.ratings?.ratingsPrev7.totalRanking,
+            totalRating: entry.ratings?.ratingsPrev7.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.lastSeven.stats[0],
+            blocks: entry.player?.statContainer?.lastSeven.stats[1],
+            steals: entry.player?.statContainer?.lastSeven.stats[2],
+            assists: entry.player?.statContainer?.lastSeven.stats[3],
+            offensiveRebounds: entry.player?.statContainer?.lastSeven.stats[4],
+            defensiveRebounds: entry.player?.statContainer?.lastSeven.stats[5],
+            rebounds: entry.player?.statContainer?.lastSeven.stats[6],
+            ejections: entry.player?.statContainer?.lastSeven.stats[7],
+            flagrantFouls: entry.player?.statContainer?.lastSeven.stats[8],
+            personalFouls: entry.player?.statContainer?.lastSeven.stats[9],
+            technicalFouls: entry.player?.statContainer?.lastSeven.stats[10],
+            turnovers: entry.player?.statContainer?.lastSeven.stats[11],
+            idk: entry.player?.statContainer?.lastSeven.stats[12],
+            fieldGoalsMade: entry.player?.statContainer?.lastSeven.stats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.lastSeven.stats[14],
+            freeThrowsMade: entry.player?.statContainer?.lastSeven.stats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.lastSeven.stats[16],
+            threePointersMade: entry.player?.statContainer?.lastSeven.stats[17],
+            threePointersAttempted: entry.player?.statContainer?.lastSeven.stats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.lastSeven.stats[19],
+            freeThrowPercentage: entry.player?.statContainer?.lastSeven.stats[20],
+            threePointPercentage: entry.player?.statContainer?.lastSeven.stats[21],
+            minutesPerGame: entry.player?.statContainer?.lastSeven.stats[28],
+            gamesPlayed: entry.player?.statContainer?.lastSeven.stats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerRankingsList7.push(playerRanking7);
+        }
+
+
+        if (entry.player?.statContainer?.prevSeason) {
+          const playerRankingPrev: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
+            totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+            totalRating: entry.ratings?.ratingsCurr.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.prevSeason.stats[0],
+            blocks: entry.player?.statContainer?.prevSeason.stats[1],
+            steals: entry.player?.statContainer?.prevSeason.stats[2],
+            assists: entry.player?.statContainer?.prevSeason.stats[3],
+            offensiveRebounds: entry.player?.statContainer?.prevSeason.stats[4],
+            defensiveRebounds: entry.player?.statContainer?.prevSeason.stats[5],
+            rebounds: entry.player?.statContainer?.prevSeason.stats[6],
+            ejections: entry.player?.statContainer?.prevSeason.stats[7],
+            flagrantFouls: entry.player?.statContainer?.prevSeason.stats[8],
+            personalFouls: entry.player?.statContainer?.prevSeason.stats[9],
+            technicalFouls: entry.player?.statContainer?.prevSeason.stats[10],
+            turnovers: entry.player?.statContainer?.prevSeason.stats[11],
+            idk: entry.player?.statContainer?.prevSeason.stats[12],
+            fieldGoalsMade: entry.player?.statContainer?.prevSeason.stats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.prevSeason.stats[14],
+            freeThrowsMade: entry.player?.statContainer?.prevSeason.stats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.prevSeason.stats[16],
+            threePointersMade: entry.player?.statContainer?.prevSeason.stats[17],
+            threePointersAttempted: entry.player?.statContainer?.prevSeason.stats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.prevSeason.stats[19],
+            freeThrowPercentage: entry.player?.statContainer?.prevSeason.stats[20],
+            threePointPercentage: entry.player?.statContainer?.prevSeason.stats[21],
+            minutesPerGame: entry.player?.statContainer?.prevSeason.stats[28],
+            gamesPlayed: entry.player?.statContainer?.prevSeason.stats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerRankingsListPrev.push(playerRankingPrev);
+        }
+
+
+        if (entry.player?.statContainer?.lastThirty) {
+          const playerRanking30: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsPrev30.positionalRanking,
+            totalRanking: entry.ratings?.ratingsPrev30.totalRanking,
+            totalRating: entry.ratings?.ratingsPrev30.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.lastThirty.stats[0],
+            blocks: entry.player?.statContainer?.lastThirty.stats[1],
+            steals: entry.player?.statContainer?.lastThirty.stats[2],
+            assists: entry.player?.statContainer?.lastThirty.stats[3],
+            offensiveRebounds: entry.player?.statContainer?.lastThirty.stats[4],
+            defensiveRebounds: entry.player?.statContainer?.lastThirty.stats[5],
+            rebounds: entry.player?.statContainer?.lastThirty.stats[6],
+            ejections: entry.player?.statContainer?.lastThirty.stats[7],
+            flagrantFouls: entry.player?.statContainer?.lastThirty.stats[8],
+            personalFouls: entry.player?.statContainer?.lastThirty.stats[9],
+            technicalFouls: entry.player?.statContainer?.lastThirty.stats[10],
+            turnovers: entry.player?.statContainer?.lastThirty.stats[11],
+            idk: entry.player?.statContainer?.lastThirty.stats[12],
+            fieldGoalsMade: entry.player?.statContainer?.lastThirty.stats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.lastThirty.stats[14],
+            freeThrowsMade: entry.player?.statContainer?.lastThirty.stats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.lastThirty.stats[16],
+            threePointersMade: entry.player?.statContainer?.lastThirty.stats[17],
+            threePointersAttempted: entry.player?.statContainer?.lastThirty.stats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.lastThirty.stats[19],
+            freeThrowPercentage: entry.player?.statContainer?.lastThirty.stats[20],
+            threePointPercentage: entry.player?.statContainer?.lastThirty.stats[21],
+            minutesPerGame: entry.player?.statContainer?.lastThirty.stats[28],
+            gamesPlayed: entry.player?.statContainer?.lastThirty.stats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerRankingsList30.push(playerRanking30);
+        }
+        if (entry.player?.statContainer?.seasonProjections) {
+          const playerRankingProj: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
+            totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+            totalRating: entry.ratings?.ratingsCurr.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.seasonProjections.stats[0],
+            blocks: entry.player?.statContainer?.seasonProjections.stats[1],
+            steals: entry.player?.statContainer?.seasonProjections.stats[2],
+            assists: entry.player?.statContainer?.seasonProjections.stats[3],
+            offensiveRebounds: entry.player?.statContainer?.seasonProjections.stats[4],
+            defensiveRebounds: entry.player?.statContainer?.seasonProjections.stats[5],
+            rebounds: entry.player?.statContainer?.seasonProjections.stats[6],
+            ejections: entry.player?.statContainer?.seasonProjections.stats[7],
+            flagrantFouls: entry.player?.statContainer?.seasonProjections.stats[8],
+            personalFouls: entry.player?.statContainer?.seasonProjections.stats[9],
+            technicalFouls: entry.player?.statContainer?.seasonProjections.stats[10],
+            turnovers: entry.player?.statContainer?.seasonProjections.stats[11],
+            idk: entry.player?.statContainer?.seasonProjections.stats[12],
+            fieldGoalsMade: entry.player?.statContainer?.seasonProjections.stats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.seasonProjections.stats[14],
+            freeThrowsMade: entry.player?.statContainer?.seasonProjections.stats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.seasonProjections.stats[16],
+            threePointersMade: entry.player?.statContainer?.seasonProjections.stats[17],
+            threePointersAttempted: entry.player?.statContainer?.seasonProjections.stats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.seasonProjections.stats[19],
+            freeThrowPercentage: entry.player?.statContainer?.seasonProjections.stats[20],
+            threePointPercentage: entry.player?.statContainer?.seasonProjections.stats[21],
+            minutesPerGame: entry.player?.statContainer?.seasonProjections.stats[28],
+            gamesPlayed: entry.player?.statContainer?.seasonProjections.stats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerRankingsListProj.push(playerRankingProj);
+        }
+
+
+        if (entry.player?.statContainer?.prevSeasonProjections) {
+          const playerRankingPrevProj: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
+            totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+            totalRating: entry.ratings?.ratingsCurr.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.prevSeasonProjections.stats[0],
+            blocks: entry.player?.statContainer?.prevSeasonProjections.stats[1],
+            steals: entry.player?.statContainer?.prevSeasonProjections.stats[2],
+            assists: entry.player?.statContainer?.prevSeasonProjections.stats[3],
+            offensiveRebounds: entry.player?.statContainer?.prevSeasonProjections.stats[4],
+            defensiveRebounds: entry.player?.statContainer?.prevSeasonProjections.stats[5],
+            rebounds: entry.player?.statContainer?.prevSeasonProjections.stats[6],
+            ejections: entry.player?.statContainer?.prevSeasonProjections.stats[7],
+            flagrantFouls: entry.player?.statContainer?.prevSeasonProjections.stats[8],
+            personalFouls: entry.player?.statContainer?.prevSeasonProjections.stats[9],
+            technicalFouls: entry.player?.statContainer?.prevSeasonProjections.stats[10],
+            turnovers: entry.player?.statContainer?.prevSeasonProjections.stats[11],
+            idk: entry.player?.statContainer?.prevSeasonProjections.stats[12],
+            fieldGoalsMade: entry.player?.statContainer?.prevSeasonProjections.stats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.prevSeasonProjections.stats[14],
+            freeThrowsMade: entry.player?.statContainer?.prevSeasonProjections.stats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.prevSeasonProjections.stats[16],
+            threePointersMade: entry.player?.statContainer?.prevSeasonProjections.stats[17],
+            threePointersAttempted: entry.player?.statContainer?.prevSeasonProjections.stats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.prevSeasonProjections.stats[19],
+            freeThrowPercentage: entry.player?.statContainer?.prevSeasonProjections.stats[20],
+            threePointPercentage: entry.player?.statContainer?.prevSeasonProjections.stats[21],
+            minutesPerGame: entry.player?.statContainer?.prevSeasonProjections.stats[28],
+            gamesPlayed: entry.player?.statContainer?.prevSeasonProjections.stats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerRankingsListPrevProj.push(playerRankingPrevProj);
+        }
+
+
+        // AVERAGES
+        if (entry.player?.statContainer?.currentSeason?.averageStats) {
+          const playerAvgRankingCurr: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
+            totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+            totalRating: entry.ratings?.ratingsCurr.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.currentSeason.averageStats[0],
+            blocks: entry.player?.statContainer?.currentSeason.averageStats[1],
+            steals: entry.player?.statContainer?.currentSeason.averageStats[2],
+            assists: entry.player?.statContainer?.currentSeason.averageStats[3],
+            offensiveRebounds: entry.player?.statContainer?.currentSeason.averageStats[4],
+            defensiveRebounds: entry.player?.statContainer?.currentSeason.averageStats[5],
+            rebounds: entry.player?.statContainer?.currentSeason.averageStats[6],
+            ejections: entry.player?.statContainer?.currentSeason.averageStats[7],
+            flagrantFouls: entry.player?.statContainer?.currentSeason.averageStats[8],
+            personalFouls: entry.player?.statContainer?.currentSeason.averageStats[9],
+            technicalFouls: entry.player?.statContainer?.currentSeason.averageStats[10],
+            turnovers: entry.player?.statContainer?.currentSeason.averageStats[11],
+            idk: entry.player?.statContainer?.currentSeason.averageStats[12],
+            fieldGoalsMade: entry.player?.statContainer?.currentSeason.averageStats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.currentSeason.averageStats[14],
+            freeThrowsMade: entry.player?.statContainer?.currentSeason.averageStats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.currentSeason.averageStats[16],
+            threePointersMade: entry.player?.statContainer?.currentSeason.averageStats[17],
+            threePointersAttempted: entry.player?.statContainer?.currentSeason.averageStats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.currentSeason.averageStats[19],
+            freeThrowPercentage: entry.player?.statContainer?.currentSeason.averageStats[20],
+            threePointPercentage: entry.player?.statContainer?.currentSeason.averageStats[21],
+            minutesPerGame: entry.player?.statContainer?.currentSeason.averageStats[28],
+            gamesPlayed: entry.player?.statContainer?.currentSeason.averageStats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerAvgRankingsListCurr.push(playerAvgRankingCurr);
+        }
+
+
+        if (entry.player?.statContainer?.lastFifteen?.averageStats) {
+          const playerAvgRanking15: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsPrev15.positionalRanking,
+            totalRanking: entry.ratings?.ratingsPrev15.totalRanking,
+            totalRating: entry.ratings?.ratingsPrev15.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.lastFifteen.averageStats[0],
+            blocks: entry.player?.statContainer?.lastFifteen.averageStats[1],
+            steals: entry.player?.statContainer?.lastFifteen.averageStats[2],
+            assists: entry.player?.statContainer?.lastFifteen.averageStats[3],
+            offensiveRebounds: entry.player?.statContainer?.lastFifteen.averageStats[4],
+            defensiveRebounds: entry.player?.statContainer?.lastFifteen.averageStats[5],
+            rebounds: entry.player?.statContainer?.lastFifteen.averageStats[6],
+            ejections: entry.player?.statContainer?.lastFifteen.averageStats[7],
+            flagrantFouls: entry.player?.statContainer?.lastFifteen.averageStats[8],
+            personalFouls: entry.player?.statContainer?.lastFifteen.averageStats[9],
+            technicalFouls: entry.player?.statContainer?.lastFifteen.averageStats[10],
+            turnovers: entry.player?.statContainer?.lastFifteen.averageStats[11],
+            idk: entry.player?.statContainer?.lastFifteen.averageStats[12],
+            fieldGoalsMade: entry.player?.statContainer?.lastFifteen.averageStats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.lastFifteen.averageStats[14],
+            freeThrowsMade: entry.player?.statContainer?.lastFifteen.averageStats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.lastFifteen.averageStats[16],
+            threePointersMade: entry.player?.statContainer?.lastFifteen.averageStats[17],
+            threePointersAttempted: entry.player?.statContainer?.lastFifteen.averageStats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.lastFifteen.averageStats[19],
+            freeThrowPercentage: entry.player?.statContainer?.lastFifteen.averageStats[20],
+            threePointPercentage: entry.player?.statContainer?.lastFifteen.averageStats[21],
+            minutesPerGame: entry.player?.statContainer?.lastFifteen.averageStats[28],
+            gamesPlayed: entry.player?.statContainer?.lastFifteen.averageStats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerAvgRankingsList15.push(playerAvgRanking15);
+        }
+
+
+        if (entry.player?.statContainer?.lastSeven?.averageStats) {
+          const playerAvgRanking7: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsPrev7.positionalRanking,
+            totalRanking: entry.ratings?.ratingsPrev7.totalRanking,
+            totalRating: entry.ratings?.ratingsPrev7.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.lastSeven.averageStats[0],
+            blocks: entry.player?.statContainer?.lastSeven.averageStats[1],
+            steals: entry.player?.statContainer?.lastSeven.averageStats[2],
+            assists: entry.player?.statContainer?.lastSeven.averageStats[3],
+            offensiveRebounds: entry.player?.statContainer?.lastSeven.averageStats[4],
+            defensiveRebounds: entry.player?.statContainer?.lastSeven.averageStats[5],
+            rebounds: entry.player?.statContainer?.lastSeven.averageStats[6],
+            ejections: entry.player?.statContainer?.lastSeven.averageStats[7],
+            flagrantFouls: entry.player?.statContainer?.lastSeven.averageStats[8],
+            personalFouls: entry.player?.statContainer?.lastSeven.averageStats[9],
+            technicalFouls: entry.player?.statContainer?.lastSeven.averageStats[10],
+            turnovers: entry.player?.statContainer?.lastSeven.averageStats[11],
+            idk: entry.player?.statContainer?.lastSeven.averageStats[12],
+            fieldGoalsMade: entry.player?.statContainer?.lastSeven.averageStats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.lastSeven.averageStats[14],
+            freeThrowsMade: entry.player?.statContainer?.lastSeven.averageStats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.lastSeven.averageStats[16],
+            threePointersMade: entry.player?.statContainer?.lastSeven.averageStats[17],
+            threePointersAttempted: entry.player?.statContainer?.lastSeven.averageStats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.lastSeven.averageStats[19],
+            freeThrowPercentage: entry.player?.statContainer?.lastSeven.averageStats[20],
+            threePointPercentage: entry.player?.statContainer?.lastSeven.averageStats[21],
+            minutesPerGame: entry.player?.statContainer?.lastSeven.averageStats[28],
+            gamesPlayed: entry.player?.statContainer?.lastSeven.averageStats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerAvgRankingsList7.push(playerAvgRanking7);
+        }
+
+
+        if (entry.player?.statContainer?.prevSeason?.averageStats) {
+          const playerAvgRankingPrev: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
+            totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+            totalRating: entry.ratings?.ratingsCurr.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.prevSeason.averageStats[0],
+            blocks: entry.player?.statContainer?.prevSeason.averageStats[1],
+            steals: entry.player?.statContainer?.prevSeason.averageStats[2],
+            assists: entry.player?.statContainer?.prevSeason.averageStats[3],
+            offensiveRebounds: entry.player?.statContainer?.prevSeason.averageStats[4],
+            defensiveRebounds: entry.player?.statContainer?.prevSeason.averageStats[5],
+            rebounds: entry.player?.statContainer?.prevSeason.averageStats[6],
+            ejections: entry.player?.statContainer?.prevSeason.averageStats[7],
+            flagrantFouls: entry.player?.statContainer?.prevSeason.averageStats[8],
+            personalFouls: entry.player?.statContainer?.prevSeason.averageStats[9],
+            technicalFouls: entry.player?.statContainer?.prevSeason.averageStats[10],
+            turnovers: entry.player?.statContainer?.prevSeason.averageStats[11],
+            idk: entry.player?.statContainer?.prevSeason.averageStats[12],
+            fieldGoalsMade: entry.player?.statContainer?.prevSeason.averageStats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.prevSeason.averageStats[14],
+            freeThrowsMade: entry.player?.statContainer?.prevSeason.averageStats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.prevSeason.averageStats[16],
+            threePointersMade: entry.player?.statContainer?.prevSeason.averageStats[17],
+            threePointersAttempted: entry.player?.statContainer?.prevSeason.averageStats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.prevSeason.averageStats[19],
+            freeThrowPercentage: entry.player?.statContainer?.prevSeason.averageStats[20],
+            threePointPercentage: entry.player?.statContainer?.prevSeason.averageStats[21],
+            minutesPerGame: entry.player?.statContainer?.prevSeason.averageStats[28],
+            gamesPlayed: entry.player?.statContainer?.prevSeason.averageStats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerAvgRankingsListPrev.push(playerAvgRankingPrev);
+        }
+
+
+        if (entry.player?.statContainer?.lastThirty?.averageStats) {
+          const playerAvgRanking30: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsPrev30.positionalRanking,
+            totalRanking: entry.ratings?.ratingsPrev30.totalRanking,
+            totalRating: entry.ratings?.ratingsPrev30.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.lastThirty.averageStats[0],
+            blocks: entry.player?.statContainer?.lastThirty.averageStats[1],
+            steals: entry.player?.statContainer?.lastThirty.averageStats[2],
+            assists: entry.player?.statContainer?.lastThirty.averageStats[3],
+            offensiveRebounds: entry.player?.statContainer?.lastThirty.averageStats[4],
+            defensiveRebounds: entry.player?.statContainer?.lastThirty.averageStats[5],
+            rebounds: entry.player?.statContainer?.lastThirty.averageStats[6],
+            ejections: entry.player?.statContainer?.lastThirty.averageStats[7],
+            flagrantFouls: entry.player?.statContainer?.lastThirty.averageStats[8],
+            personalFouls: entry.player?.statContainer?.lastThirty.averageStats[9],
+            technicalFouls: entry.player?.statContainer?.lastThirty.averageStats[10],
+            turnovers: entry.player?.statContainer?.lastThirty.averageStats[11],
+            idk: entry.player?.statContainer?.lastThirty.averageStats[12],
+            fieldGoalsMade: entry.player?.statContainer?.lastThirty.averageStats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.lastThirty.averageStats[14],
+            freeThrowsMade: entry.player?.statContainer?.lastThirty.averageStats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.lastThirty.averageStats[16],
+            threePointersMade: entry.player?.statContainer?.lastThirty.averageStats[17],
+            threePointersAttempted: entry.player?.statContainer?.lastThirty.averageStats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.lastThirty.averageStats[19],
+            freeThrowPercentage: entry.player?.statContainer?.lastThirty.averageStats[20],
+            threePointPercentage: entry.player?.statContainer?.lastThirty.averageStats[21],
+            minutesPerGame: entry.player?.statContainer?.lastThirty.averageStats[28],
+            gamesPlayed: entry.player?.statContainer?.lastThirty.averageStats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerAvgRankingsList30.push(playerAvgRanking30);
+        }
+        if (entry.player?.statContainer?.seasonProjections?.averageStats) {
+          const playerAvgRankingProj: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
+            totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+            totalRating: entry.ratings?.ratingsCurr.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.seasonProjections.averageStats[0],
+            blocks: entry.player?.statContainer?.seasonProjections.averageStats[1],
+            steals: entry.player?.statContainer?.seasonProjections.averageStats[2],
+            assists: entry.player?.statContainer?.seasonProjections.averageStats[3],
+            offensiveRebounds: entry.player?.statContainer?.seasonProjections.averageStats[4],
+            defensiveRebounds: entry.player?.statContainer?.seasonProjections.averageStats[5],
+            rebounds: entry.player?.statContainer?.seasonProjections.averageStats[6],
+            ejections: entry.player?.statContainer?.seasonProjections.averageStats[7],
+            flagrantFouls: entry.player?.statContainer?.seasonProjections.averageStats[8],
+            personalFouls: entry.player?.statContainer?.seasonProjections.averageStats[9],
+            technicalFouls: entry.player?.statContainer?.seasonProjections.averageStats[10],
+            turnovers: entry.player?.statContainer?.seasonProjections.averageStats[11],
+            idk: entry.player?.statContainer?.seasonProjections.averageStats[12],
+            fieldGoalsMade: entry.player?.statContainer?.seasonProjections.averageStats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.seasonProjections.averageStats[14],
+            freeThrowsMade: entry.player?.statContainer?.seasonProjections.averageStats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.seasonProjections.averageStats[16],
+            threePointersMade: entry.player?.statContainer?.seasonProjections.averageStats[17],
+            threePointersAttempted: entry.player?.statContainer?.seasonProjections.averageStats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.seasonProjections.averageStats[19],
+            freeThrowPercentage: entry.player?.statContainer?.seasonProjections.averageStats[20],
+            threePointPercentage: entry.player?.statContainer?.seasonProjections.averageStats[21],
+            minutesPerGame: entry.player?.statContainer?.seasonProjections.averageStats[28],
+            gamesPlayed: entry.player?.statContainer?.seasonProjections.averageStats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerAvgRankingsListProj.push(playerAvgRankingProj);
+        }
+
+
+        if (entry.player?.statContainer?.prevSeasonProjections?.averageStats) {
+          const playerAvgRankingPrevProj: PlayerRanking = {
+            id: entry.id,
+            onTeamId: entry.onTeamId,
+            proTeamId: entry.player?.proTeamId,
+            defaultPositionId: entry.player?.defaultPositionId,
+            positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
+            totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+            totalRating: entry.ratings?.ratingsCurr.totalRating,
+            fullName: entry.player?.fullName,
+            points: entry.player?.statContainer?.prevSeasonProjections.averageStats[0],
+            blocks: entry.player?.statContainer?.prevSeasonProjections.averageStats[1],
+            steals: entry.player?.statContainer?.prevSeasonProjections.averageStats[2],
+            assists: entry.player?.statContainer?.prevSeasonProjections.averageStats[3],
+            offensiveRebounds: entry.player?.statContainer?.prevSeasonProjections.averageStats[4],
+            defensiveRebounds: entry.player?.statContainer?.prevSeasonProjections.averageStats[5],
+            rebounds: entry.player?.statContainer?.prevSeasonProjections.averageStats[6],
+            ejections: entry.player?.statContainer?.prevSeasonProjections.averageStats[7],
+            flagrantFouls: entry.player?.statContainer?.prevSeasonProjections.averageStats[8],
+            personalFouls: entry.player?.statContainer?.prevSeasonProjections.averageStats[9],
+            technicalFouls: entry.player?.statContainer?.prevSeasonProjections.averageStats[10],
+            turnovers: entry.player?.statContainer?.prevSeasonProjections.averageStats[11],
+            idk: entry.player?.statContainer?.prevSeasonProjections.averageStats[12],
+            fieldGoalsMade: entry.player?.statContainer?.prevSeasonProjections.averageStats[13],
+            fieldGoalsAttempted: entry.player?.statContainer?.prevSeasonProjections.averageStats[14],
+            freeThrowsMade: entry.player?.statContainer?.prevSeasonProjections.averageStats[15],
+            freeThrowsAttempted: entry.player?.statContainer?.prevSeasonProjections.averageStats[16],
+            threePointersMade: entry.player?.statContainer?.prevSeasonProjections.averageStats[17],
+            threePointersAttempted: entry.player?.statContainer?.prevSeasonProjections.averageStats[18],
+            fieldGoalPercentage: entry.player?.statContainer?.prevSeasonProjections.averageStats[19],
+            freeThrowPercentage: entry.player?.statContainer?.prevSeasonProjections.averageStats[20],
+            threePointPercentage: entry.player?.statContainer?.prevSeasonProjections.averageStats[21],
+            minutesPerGame: entry.player?.statContainer?.prevSeasonProjections.averageStats[28],
+            gamesPlayed: entry.player?.statContainer?.prevSeasonProjections.averageStats[42],
+            adp: entry.player?.ownership?.averageDraftPosition,
+            eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+          }
+          playerAvgRankingsListPrevProj.push(playerAvgRankingPrevProj);
+        }
+      }
+    })
+    // TOTALS
+    this.playerRankingsDataCurr = playerRankingsListCurr;
+    this.playerRankingsData7 = playerRankingsList7;
+    this.playerRankingsData15 = playerRankingsList15;
+    this.playerRankingsData30 = playerRankingsList30;
+    this.playerRankingsDataPrev = playerRankingsListPrev;
+    this.playerRankingsDataProj = playerRankingsListProj;
+    this.playerRankingsDataPrevProj = playerRankingsListPrevProj;
+
+
+    // AVERAGES
+    this.playerAvgRankingsDataCurr = playerAvgRankingsListCurr;
+    this.playerAvgRankingsData7 = playerAvgRankingsList7;
+    this.playerAvgRankingsData15 = playerAvgRankingsList15;
+    this.playerAvgRankingsData30 = playerAvgRankingsList30;
+    this.playerAvgRankingsDataPrev = playerAvgRankingsListPrev;
+    this.playerAvgRankingsDataProj = playerAvgRankingsListProj;
+    this.playerAvgRankingsDataPrevProj = playerAvgRankingsListPrevProj;
+
+    this.displayedData = playerAvgRankingsListCurr;
+    this.cdr.detectChanges();
+
   }
 
 

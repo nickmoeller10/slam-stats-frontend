@@ -42,8 +42,8 @@ export class TeamComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getRosters();
     this.getLeagueInfo();
+    this.getRosters();
     this.initColumns();
     this.visibleColumns = this.tableColumns.filter(column => (column.isViewable !== false || !column.hasOwnProperty('isViewable') ));
   }
@@ -67,14 +67,16 @@ export class TeamComponent implements OnInit {
   }
 
   onRosterChange($event: any) {
-    this.selected = $event.value;
-    this.rosterList.forEach(roster => {
-      if(roster[0].onTeamId === $event.value.id) {
-        this.parsePlayerData(roster);
-        this.displayedData = roster;
-      }
-    })
-    this.mapPlayersToRoster();
+    if ($event.value != null) {
+      this.selected = $event.value;
+      this.rosterList.forEach(roster => {
+        if(roster[0].onTeamId === $event.value.id) {
+          this.parsePlayerData(roster);
+          this.displayedData = roster;
+        }
+      })
+      this.mapPlayersToRoster();
+    }
   }
 
   onViewToggleChange() {

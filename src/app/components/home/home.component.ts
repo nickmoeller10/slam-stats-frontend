@@ -74,9 +74,9 @@ export class HomeComponent implements OnInit {
   updateLeague() {
     this.leagueService.updateLeagueConfiguration(this.leagueConfig)
       .subscribe(
-        response => {
-          console.log('Configuration updated successfully');
-          this.responseMessage = 'Successfully Generated League';
+        data => {
+        //  console.log('Configuration updated successfully');
+          this.responseMessage = data.response.message;
           this.hasError = false;
         },
         error => {
