@@ -15,10 +15,10 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14.21.3
-      - name: Install Firebase CLI
+      - name: Install and Use Firebase CLI
         run: |
-            npm uninstall -g firebase-tools
-            npm install -g firebase-tools@10.9.2
+          npm uninstall -g firebase-tools  # Uninstall previous version if any
+          npm install -g firebase-tools@10.9.2  # Install the specified version
       - name: Install project dependencies
         run: npm ci
       - name: Build project
