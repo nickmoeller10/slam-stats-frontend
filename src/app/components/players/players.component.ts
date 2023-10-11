@@ -20,7 +20,10 @@ export class PlayersComponent implements OnInit {
 
   @Input() source: string = '';
   @Input() hasFooter = false;
-  @Output() dataSourceChangeEvent: EventEmitter<void> = new EventEmitter<void>();
+  @Input() hasFilter = true;
+  @Input() displayViewToggle = true;
+  @Input() isSelectable = false;
+  @Output() dataSourceChangeEvent: EventEmitter<PlayerRanking[]> = new EventEmitter<PlayerRanking[]>();
 
 
   displayedColumns: string[] = ['id', 'defaultPositionId', 'fullName', 'jersey', 'proTeamId'];
@@ -434,7 +437,7 @@ export class PlayersComponent implements OnInit {
       res.forEach(entry => {
         // Removes all players that do not have relevant stats
         if (entry.ratings?.ratingsCurr.totalRanking != null && entry.ratings?.ratingsCurr.totalRanking !== 0) {
-          if (entry.player?.statContainer?.currentSeason) {
+          if (entry.player?.statContainer?.currentSeason?.stats && entry.player?.statContainer?.currentSeason?.averageStats) {
             const playerRankingCurr: PlayerRanking = {
               id: entry.id,
               onTeamId: entry.onTeamId,
@@ -470,12 +473,13 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.currentSeason.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.stats[42]) * 100,
             }
             playerRankingsListCurr.push(playerRankingCurr);
           }
 
 
-          if (entry.player?.statContainer?.lastFifteen) {
+          if (entry.player?.statContainer?.lastFifteen?.stats && entry.player?.statContainer?.lastFifteen?.averageStats) {
             const playerRanking15: PlayerRanking = {
               id: entry.id,
               onTeamId: entry.onTeamId,
@@ -511,12 +515,13 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastFifteen.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              ratingPerGame: (entry.ratings?.ratingsPrev15.totalRating / entry.player?.statContainer?.lastFifteen.stats[42]) * 100,
             }
             playerRankingsList15.push(playerRanking15);
           }
 
 
-          if (entry.player?.statContainer?.lastSeven?.averageStats) {
+          if (entry.player?.statContainer?.lastSeven?.stats && entry.player?.statContainer?.lastSeven?.averageStats) {
             const playerRanking7: PlayerRanking = {
               id: entry.id,
               onTeamId: entry.onTeamId,
@@ -552,12 +557,13 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastSeven.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              ratingPerGame: (entry.ratings?.ratingsPrev7.totalRating / entry.player?.statContainer?.lastSeven.stats[42]) * 100,
             }
             playerRankingsList7.push(playerRanking7);
           }
 
 
-          if (entry.player?.statContainer?.prevSeason) {
+          if (entry.player?.statContainer?.prevSeason?.stats && entry.player?.statContainer?.prevSeason?.averageStats) {
             const playerRankingPrev: PlayerRanking = {
               id: entry.id,
               onTeamId: entry.onTeamId,
@@ -565,7 +571,7 @@ export class PlayersComponent implements OnInit {
               defaultPositionId: entry.player?.defaultPositionId,
               positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
               totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
+              //totalRating: null,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.prevSeason.stats[0],
               blocks: entry.player?.statContainer?.prevSeason.stats[1],
@@ -593,12 +599,13 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.prevSeason.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              //ratingPerGame: null,
             }
             playerRankingsListPrev.push(playerRankingPrev);
           }
 
 
-          if (entry.player?.statContainer?.lastThirty) {
+          if (entry.player?.statContainer?.lastThirty?.stats && entry.player?.statContainer?.lastThirty?.averageStats) {
             const playerRanking30: PlayerRanking = {
               id: entry.id,
               onTeamId: entry.onTeamId,
@@ -634,10 +641,11 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastThirty.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              ratingPerGame: (entry.ratings?.ratingsPrev30.totalRanking / entry.player?.statContainer?.lastThirty.stats[42]) * 100,
             }
             playerRankingsList30.push(playerRanking30);
           }
-          if (entry.player?.statContainer?.seasonProjections) {
+          if (entry.player?.statContainer?.seasonProjections?.stats && entry.player?.statContainer?.seasonProjections?.averageStats) {
             const playerRankingProj: PlayerRanking = {
               id: entry.id,
               onTeamId: entry.onTeamId,
@@ -645,7 +653,7 @@ export class PlayersComponent implements OnInit {
               defaultPositionId: entry.player?.defaultPositionId,
               positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
               totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
+              //totalRating: entry.ratings?.ratingsCurr.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.seasonProjections.stats[0],
               blocks: entry.player?.statContainer?.seasonProjections.stats[1],
@@ -673,12 +681,13 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.seasonProjections.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              //ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.stats[42]) * 100,
             }
             playerRankingsListProj.push(playerRankingProj);
           }
 
 
-          if (entry.player?.statContainer?.prevSeasonProjections) {
+          if (entry.player?.statContainer?.prevSeasonProjections?.stats && entry.player?.statContainer?.prevSeasonProjections?.averageStats) {
             const playerRankingPrevProj: PlayerRanking = {
               id: entry.id,
               onTeamId: entry.onTeamId,
@@ -686,7 +695,7 @@ export class PlayersComponent implements OnInit {
               defaultPositionId: entry.player?.defaultPositionId,
               positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
               totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
+              //totalRating: entry.ratings?.ratingsCurr.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.prevSeasonProjections.stats[0],
               blocks: entry.player?.statContainer?.prevSeasonProjections.stats[1],
@@ -714,13 +723,14 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.prevSeasonProjections.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+            //  ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.stats[42]) * 100,
             }
             playerRankingsListPrevProj.push(playerRankingPrevProj);
           }
 
 
           // AVERAGES
-          if (entry.player?.statContainer?.currentSeason?.averageStats) {
+          if (entry.player?.statContainer?.currentSeason?.averageStats ) {
             const playerAvgRankingCurr: PlayerRanking = {
               id: entry.id,
               onTeamId: entry.onTeamId,
@@ -756,6 +766,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.currentSeason.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.averageStats[42]) * 100,
             }
             playerAvgRankingsListCurr.push(playerAvgRankingCurr);
           }
@@ -797,6 +808,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastFifteen.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              ratingPerGame: (entry.ratings?.ratingsPrev15.totalRating / entry.player?.statContainer?.lastFifteen.averageStats[42]) * 100,
             }
             playerAvgRankingsList15.push(playerAvgRanking15);
           }
@@ -838,6 +850,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastSeven.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              ratingPerGame: ( entry.ratings?.ratingsPrev7.totalRating / entry.player?.statContainer?.lastSeven.averageStats[42]) * 100,
             }
             playerAvgRankingsList7.push(playerAvgRanking7);
           }
@@ -851,7 +864,7 @@ export class PlayersComponent implements OnInit {
               defaultPositionId: entry.player?.defaultPositionId,
               positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
               totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
+              //totalRating: entry.ratings?.ratingsCurr.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.prevSeason.averageStats[0],
               blocks: entry.player?.statContainer?.prevSeason.averageStats[1],
@@ -879,6 +892,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.prevSeason.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              //ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.stats[42]) * 100,
             }
             playerAvgRankingsListPrev.push(playerAvgRankingPrev);
           }
@@ -920,6 +934,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastThirty.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+              ratingPerGame: (entry.ratings?.ratingsPrev30.totalRating/ entry.player?.statContainer?.lastThirty.averageStats[42]) * 100,
             }
             playerAvgRankingsList30.push(playerAvgRanking30);
           }
@@ -931,7 +946,7 @@ export class PlayersComponent implements OnInit {
               defaultPositionId: entry.player?.defaultPositionId,
               positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
               totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
+              //totalRating: entry.ratings?.ratingsCurr.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.seasonProjections.averageStats[0],
               blocks: entry.player?.statContainer?.seasonProjections.averageStats[1],
@@ -959,6 +974,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.seasonProjections.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+             // ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.stats[42]) * 100,
             }
             playerAvgRankingsListProj.push(playerAvgRankingProj);
           }
@@ -972,7 +988,7 @@ export class PlayersComponent implements OnInit {
               defaultPositionId: entry.player?.defaultPositionId,
               positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
               totalRanking: entry.ratings?.ratingsCurr.totalRanking,
-              totalRating: entry.ratings?.ratingsCurr.totalRating,
+             // totalRating: entry.ratings?.ratingsCurr.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.prevSeasonProjections.averageStats[0],
               blocks: entry.player?.statContainer?.prevSeasonProjections.averageStats[1],
@@ -1000,6 +1016,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.prevSeasonProjections.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
+             // ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.stats[42]) * 100,
             }
             playerAvgRankingsListPrevProj.push(playerAvgRankingPrevProj);
           }
@@ -1032,8 +1049,14 @@ export class PlayersComponent implements OnInit {
 
 
   onDataSourceChange($event: any) {
+    let val = 0;
+    if ($event.value) {
+      val = $event.value;
+    } else {
+      val = $event;
+    }
     if (this.basedOn === 'Totals') {
-      switch ($event.value) {
+      switch (val) {
         case (0): {
           this.displayedData = this.playerRankingsDataCurr;
           break;
@@ -1051,11 +1074,11 @@ export class PlayersComponent implements OnInit {
           break;
         }
         case (4): {
-          this.displayedData = this.playerRankingsDataPrev;
+          this.displayedData = this.playerRankingsDataProj;
           break;
         }
         case (5): {
-          this.displayedData = this.playerRankingsDataProj;
+          this.displayedData = this.playerRankingsDataPrev;
           break;
         }
         case (6): {
@@ -1071,7 +1094,7 @@ export class PlayersComponent implements OnInit {
 
 
     if (this.basedOn === 'Averages') {
-      switch ($event.value) {
+      switch (val) {
         case (0): {
           this.displayedData = this.playerAvgRankingsDataCurr;
           break;
@@ -1089,11 +1112,11 @@ export class PlayersComponent implements OnInit {
           break;
         }
         case (4): {
-          this.displayedData = this.playerAvgRankingsDataPrev;
+          this.displayedData = this.playerAvgRankingsDataProj;
           break;
         }
         case (5): {
-          this.displayedData = this.playerAvgRankingsDataProj;
+          this.displayedData = this.playerAvgRankingsDataPrev;
           break;
         }
         case (6): {
@@ -1111,8 +1134,8 @@ export class PlayersComponent implements OnInit {
     this.determineColorTable(); 
 
     // Emits for the team component
-    if (this.source === 'team') {
-      this.dataSourceChangeEvent.emit();
+    if (this.source === 'team' || this.source ==='trade') {
+      this.dataSourceChangeEvent.emit(this.displayedData);
     }
   }
 
@@ -1137,11 +1160,11 @@ export class PlayersComponent implements OnInit {
           break;
         }
         case (4): {
-          this.displayedData = this.playerRankingsDataPrev;
+          this.displayedData = this.playerRankingsDataProj;
           break;
         }
         case (5): {
-          this.displayedData = this.playerRankingsDataProj;
+          this.displayedData = this.playerRankingsDataPrev;
           break;
         }
         case (6): {
@@ -1175,11 +1198,11 @@ export class PlayersComponent implements OnInit {
           break;
         }
         case (4): {
-          this.displayedData = this.playerAvgRankingsDataPrev;
+          this.displayedData = this.playerAvgRankingsDataProj;
           break;
         }
         case (5): {
-          this.displayedData = this.playerAvgRankingsDataProj;
+          this.displayedData = this.playerAvgRankingsDataPrev;
           break;
         }
         case (6): {
@@ -1198,8 +1221,8 @@ export class PlayersComponent implements OnInit {
 
 
     // Emits for the team component
-    if (this.source === 'team') {
-      this.dataSourceChangeEvent.emit();
+    if (this.source === 'team' || this.source === 'trade') {
+      this.dataSourceChangeEvent.emit(this.displayedData);
     }
   }
 
@@ -1217,7 +1240,7 @@ export class PlayersComponent implements OnInit {
         isViewable: false,
       },
       {
-        name: 'Full Name',
+        name: 'Name',
         dataKey: 'fullName',
         isViewable: true,
       },
@@ -1288,6 +1311,13 @@ export class PlayersComponent implements OnInit {
         hasTotal: true
       },
       {
+        name: '3PM',
+        dataKey: 'threePointersMade',
+        inputType: 'float',
+        isViewable: true,
+        hasTotal: true
+      },
+      {
         name: 'BLK',
         dataKey: 'blocks',
         inputType: 'float',
@@ -1297,13 +1327,6 @@ export class PlayersComponent implements OnInit {
       {
         name: 'STL',
         dataKey: 'steals',
-        inputType: 'float',
-        isViewable: true,
-        hasTotal: true
-      },
-      {
-        name: '3PM',
-        dataKey: 'threePointersMade',
         inputType: 'float',
         isViewable: true,
         hasTotal: true
@@ -1392,8 +1415,14 @@ export class PlayersComponent implements OnInit {
         isViewable: true,
       },
       {
-        name: 'Rating',
+        name: 'ESPN Rating',
         dataKey: 'totalRating',
+        inputType: 'float',
+        isViewable: true,
+      },
+      {
+        name: 'Slam Rating',
+        dataKey: 'ratingPerGame',
         inputType: 'float',
         isViewable: true,
       },

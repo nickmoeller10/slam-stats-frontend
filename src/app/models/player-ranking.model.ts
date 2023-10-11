@@ -33,5 +33,6 @@ export interface PlayerRanking {
     threePointPercentage?: number;
     minutesPerGame?: number //28
     gamesPlayed?: number //42
-    adp?:  number 
+    adp?:  number
+    ratingPerGame?: number;
 };

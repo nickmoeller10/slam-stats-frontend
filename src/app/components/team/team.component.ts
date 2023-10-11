@@ -193,7 +193,7 @@ export class TeamComponent implements OnInit {
           if (player?.eligiblePositionNames?.length === 0 ) {
             player.eligiblePositionNames = 'SG '
           } else {
-            player.eligiblePositionNames = player.eligiblePositionNames + 'SG, '
+            player.eligiblePositionNames = player.eligiblePositionNames + 'SG '
           }
           break;
         case 2:
@@ -258,7 +258,7 @@ export class TeamComponent implements OnInit {
       },
       {
         name: 'Round Selected',
-        dataKey: 'roundSelected'
+        dataKey: 'roundSelected',
       },
       {
         name: 'Acquisition Type',

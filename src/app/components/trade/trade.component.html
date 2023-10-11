@@ -1,0 +1,49 @@
+<div>
+    <div class="flex">
+        <h1>Trade Analyzer</h1>
+        <div class="toggle-container">
+            <mat-label>{{ rosterViewToggle ? 'Show Rosters' : 'Show Fantasy Stats' }}</mat-label>
+            <mat-slide-toggle [(ngModel)]="rosterViewToggle" (change)="onViewToggleChange()"> </mat-slide-toggle>
+        </div>
+    </div>
+    <div class="tables-container">
+        <div class="team1">
+            <mat-form-field appearance="fill">
+                <mat-label>Select Team 1</mat-label>
+                <mat-select [(value)]="selected" (selectionChange)="onRosterChange1($event)">
+                <mat-option *ngFor="let roster of rosterOptions" [value]="roster">{{roster.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <app-crud-table  #roster1 [hidden]="rosterViewToggle" [isSelectable]="true"
+            [tableData]="displayedData" [tableColumns]="visibleColumns">
+            </app-crud-table>
+            <app-players [isSelectable]="true" [displayViewToggle]="false" [hasFilter]="false"  #playersComponent1 [hasFooter]="true" [hidden]="!rosterViewToggle"
+             [source]="'trade'" (dataSourceChangeEvent)="dataSourceChangeEvent1($event)"></app-players>
+        </div>
+        <div class="trade-button-container">
+            <button mat-button class="menu-button" (click)="swapPlayers()">
+                <!-- <span>Trade</span> -->
+                <mat-icon>compare_arrows</mat-icon>
+            </button>       
+        </div>
+
+        <div class="team2">
+            <mat-form-field appearance="fill">
+                <mat-label>Select Team 2</mat-label>
+                <mat-select [(value)]="selected2" (selectionChange)="onRosterChange2($event)">
+                <mat-option *ngFor="let roster of rosterOptions" [value]="roster">{{roster.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>    
+                
+            <app-crud-table #roster2 [hidden]="rosterViewToggle" [isSelectable]="true"
+            [tableData]="displayedData2" [tableColumns]="visibleColumns">
+            </app-crud-table>  
+            <app-players [displayViewToggle]="false" [isSelectable]="true" [hasFilter]="false" #playersComponent2 [hasFooter]="true" [hidden]="!rosterViewToggle" 
+            [source]="'trade'" (dataSourceChangeEvent)="dataSourceChangeEvent2($event)"></app-players> 
+        </div>
+
+    </div>
+  
+  
+    
+</div>

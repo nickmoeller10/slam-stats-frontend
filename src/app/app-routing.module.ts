@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LeagueComponent } from './components/league/league.component';
 import { PlayersComponent } from './components/players/players.component';
 import { TeamComponent } from './components/team/team.component';
+import { TradeComponent } from './components/trade/trade.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'league',
     component: LeagueComponent,
+  },
+  {
+    path: 'trade',
+    component: TradeComponent,
   },
 ];
 

@@ -32,8 +32,11 @@ export class CrudTableComponent implements OnInit {
   @Input() colorTable: ColorTable = {};
   totalRows = 10;
   @Input() hasFooter = false;
+  @Input() hasFilter = false;
+  @Input() isSelectable = false;
 
   public tableDataSource = new MatTableDataSource();
+  public selectedRows: any[] = [];
 
   // pass table data from parent component
   @Input() set tableData(data: any[]) {
@@ -130,6 +133,21 @@ export class CrudTableComponent implements OnInit {
 
     if (this.tableDataSource.paginator) {
       this.tableDataSource.paginator.firstPage();
+    }
+  }
+
+  isSelected(row: any): boolean {
+    return this.selectedRows.some(selectedRow => selectedRow === row);
+  }
+
+  toggleSelection(row: any): void {
+    if (this.isSelectable) {
+      const index = this.selectedRows.indexOf(row);
+      if (index >= 0) {
+        this.selectedRows.splice(index, 1); // Deselect row
+      } else {
+        this.selectedRows.push(row); // Select row
+      }
     }
   }
 

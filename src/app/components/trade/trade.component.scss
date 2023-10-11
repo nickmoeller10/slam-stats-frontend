@@ -1,0 +1,35 @@
+mat-form-field {
+    width: 25rem;
+}
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tables-container {
+    display: flex;
+   // align-items: center;
+    justify-content: space-between; 
+}
+.toggle-container {
+    display: flex;
+    flex-direction: column;
+}
+.table-1 {
+    padding-right: 1rem;
+}
+
+.menu-button {
+    display: flex;
+    flex-direction: column;
+}
+
+.trade-button-container {
+    flex: 0 0 auto; /* Prevent the trade button div from growing or shrinking */
+    align-self: center;
+    padding: .25rem;
+}
+
+.team1, .team2 {
+    width: 100%
+}

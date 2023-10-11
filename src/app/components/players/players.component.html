@@ -1,4 +1,4 @@
-<h1 *ngIf="source !== 'team'">Player Rankings</h1>
+<h1 *ngIf="source !== 'team' && source !== 'trade'">Player Rankings</h1>
 
 <div class="flex">
   <mat-form-field appearance="outline" class="select-field">
@@ -16,7 +16,7 @@
     </mat-select>
   </mat-form-field>
 
-  <div class="toggle-container">
+  <div class="toggle-container" *ngIf="displayViewToggle">
     <mat-label>{{ fantasyViewToggle ? 'Toggle Fantasy View' : 'Toggle Detail View' }}</mat-label>
     <mat-slide-toggle [(ngModel)]="fantasyViewToggle" (change)="onViewToggleChange()">
     </mat-slide-toggle>
@@ -26,5 +26,5 @@
 <!-- <app-player-table [displayedData]="displayedData" [visibleColumns]="visibleColumns" [standardDeviationColorTable]="standardDeviationColorTable"></app-player-table> -->
 
 <app-crud-table
-[tableData]="displayedData" [tableColumns]="visibleColumns" [colorTable]="standardDeviationColorTable" [hasFooter]="hasFooter">
+[tableData]="displayedData" [isSelectable]="isSelectable" [hasFilter]="hasFilter" [tableColumns]="visibleColumns" [colorTable]="standardDeviationColorTable" [hasFooter]="hasFooter">
 </app-crud-table>

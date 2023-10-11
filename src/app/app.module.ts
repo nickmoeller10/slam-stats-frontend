@@ -41,6 +41,7 @@ import { CrudTableComponent } from './widgets/crud-table/crud-table.component';
 import { PlayersComponent } from './components/players/players.component';
 import { LeagueComponent } from './components/league/league.component';
 import { TeamComponent } from './components/team/team.component';
+import { TradeComponent } from './components/trade/trade.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { TeamComponent } from './components/team/team.component';
     PlayersComponent,
     LeagueComponent,
     TeamComponent,
+    TradeComponent,
   ],
   imports: [
     BrowserModule,
