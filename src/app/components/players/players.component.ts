@@ -23,6 +23,7 @@ export class PlayersComponent implements OnInit {
   @Input() hasFilter = true;
   @Input() displayViewToggle = true;
   @Input() isSelectable = false;
+  @Input() displayDataSources = true;
   @Output() dataSourceChangeEvent: EventEmitter<PlayerRanking[]> = new EventEmitter<PlayerRanking[]>();
 
 

@@ -1,20 +1,26 @@
 <h1 *ngIf="source !== 'team' && source !== 'trade'">Player Rankings</h1>
 
-<div class="flex">
-  <mat-form-field appearance="outline" class="select-field">
-    <mat-label>Data Source</mat-label>
-    <mat-select [(ngModel)]="selectedDataSource" (selectionChange)="onDataSourceChange($event)">
-      <mat-option *ngFor="let dataSource of dataSourceOptions" [value]="dataSource.id">{{dataSource.value}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+<div class="flex" style="height: 80px;">
+  <div [hidden]="!displayDataSources">
+    <mat-form-field appearance="outline" class="select-field">
+      <mat-label>Data Source</mat-label>
+      <mat-select [(ngModel)]="selectedDataSource" (selectionChange)="onDataSourceChange($event)">
+        <mat-option *ngFor="let dataSource of dataSourceOptions" [value]="dataSource.id">{{dataSource.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
+  <div [hidden]="!displayDataSources">
+    <mat-form-field  appearance="outline" class="select-field">
+      <mat-label>Based On</mat-label>
+      <mat-select  [(value)]="basedOn" (selectionChange)="onAverageOrTotalChange($event)">
+        <mat-option *ngFor="let option of totalOrAverages" [value]="option">{{option}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="outline" class="select-field">
-    <mat-label>Based On</mat-label>
-    <mat-select  [(value)]="basedOn" (selectionChange)="onAverageOrTotalChange($event)">
-      <mat-option *ngFor="let option of totalOrAverages" [value]="option">{{option}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+   <!-- For Spacing -->
+  <div *ngIf="!displayDataSources"></div>
 
   <div class="toggle-container" *ngIf="displayViewToggle">
     <mat-label>{{ fantasyViewToggle ? 'Toggle Fantasy View' : 'Toggle Detail View' }}</mat-label>

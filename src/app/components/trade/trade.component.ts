@@ -114,7 +114,7 @@ export class TradeComponent implements OnInit {
 
         // Adds the items selected to player component 2
         this.playersComponent2.displayedData.push(...itemsToMoveToPlayerComponent2);
-        this.filterTables();
+       // this.filterTables();
       }
 
       if (this.selectedPlayersRoster2.length > 0) {
@@ -138,7 +138,7 @@ export class TradeComponent implements OnInit {
 
         // Adds the items selected to player component 2
         this.playersComponent1.displayedData.push(...itemsToMoveToPlayerComponent1);
-        this.filterTables();
+        //this.filterTables();
       }
 
       // Finds all entries of roster 1 and player comp 1
@@ -164,7 +164,7 @@ export class TradeComponent implements OnInit {
         // Adds the items selected to player component 2
         this.playersComponent2.displayedData.push(...itemsToMoveToPlayerComponent2);
 
-        this.filterTables();
+      //  this.filterTables();
       }
 
       // Finds all entries of roster 1 and player comp 1
@@ -189,8 +189,20 @@ export class TradeComponent implements OnInit {
 
         // Adds the items selected to player component 2
         this.playersComponent1.displayedData.push(...itemsToMoveToPlayerComponent1);
-        this.filterTables();
+       // this.filterTables();
       }
+
+      this.filterTables();
+      // Make sure displayedData matches roster tables
+      if (this.displayedData !== this.roster1.tableDataSource.data) {
+        this.displayedData = [...this.roster1.tableDataSource.data as Player[]]
+      }
+
+      // Make sure displayedData matches roster tables
+      if (this.displayedData2 !== this.roster2.tableDataSource.data) {
+        this.displayedData2 = [...this.roster2.tableDataSource.data as Player[]]
+      }
+
       this.activeTrade = false;
 
     } else { // Not an active trade. Either data source change, selected team change or toggle view change
@@ -205,12 +217,8 @@ export class TradeComponent implements OnInit {
     }
 
     // Need to update original player component team IDs
-    if (itemsToMoveToPlayerComponent1.length > 0) {
-      this.updateOriginalPlayersComponentData(selectedId1, itemsToMoveToPlayerComponent1);
-    }
-
-    if (itemsToMoveToPlayerComponent2.length > 0 ) {
-      this.updateOriginalPlayersComponentData(selectedId2, itemsToMoveToPlayerComponent2);
+    if (itemsToMoveToPlayerComponent1.length > 0 || itemsToMoveToPlayerComponent2.length > 0) {
+      this.updateOriginalPlayersComponentData(selectedId1, selectedId2, itemsToMoveToPlayerComponent1, itemsToMoveToPlayerComponent2);
     }
 
     // Need to update rosters if a trade occurred
@@ -221,13 +229,36 @@ export class TradeComponent implements OnInit {
 
   }
 
-  updateOriginalPlayersComponentData(selectedId2: number, itemsToMoveToPlayerComponent1: PlayerRanking[]): void {
+  updateOriginalPlayersComponentData(selectedId1: number,selectedId2: number,
+    itemsToMoveToPlayerComponent1: PlayerRanking[],  itemsToMoveToPlayerComponent2: PlayerRanking[]): void {
+
     for (const itemToMove of itemsToMoveToPlayerComponent1) {
       const matchingItem = this.originalPlayersComponentData1.find(
         (player: PlayerRanking) => player.id === itemToMove.id
       );
+      const matchingItem2 = this.originalPlayersComponentData2.find(
+        (player: PlayerRanking) => player.id === itemToMove.id
+      );
+      if (matchingItem) {
+        matchingItem.onTeamId = selectedId1;
+      }
+      if (matchingItem2) {
+        matchingItem2.onTeamId = selectedId1;
+      }
+    }
+
+    for (const itemToMove of itemsToMoveToPlayerComponent2) {
+      const matchingItem = this.originalPlayersComponentData1.find(
+        (player: PlayerRanking) => player.id === itemToMove.id
+      );
+      const matchingItem2 = this.originalPlayersComponentData2.find(
+        (player: PlayerRanking) => player.id === itemToMove.id
+      );
       if (matchingItem) {
         matchingItem.onTeamId = selectedId2;
+      }
+      if (matchingItem2) {
+        matchingItem2.onTeamId = selectedId2;
       }
     }
   }
@@ -251,9 +282,10 @@ export class TradeComponent implements OnInit {
     this.playersComponent2.displayedData = this.playersComponent2.displayedData.filter((x: any) => {
       return x.onTeamId !== selectedId1;
       });
-  }
+   }
 
-  dataSourceChangeEvent1($event: PlayerRanking[]): void {
+  dataSourceChangeEvent($event: PlayerRanking[]): void {
+    // Event is the original data source
     $event.forEach(eventPlayer => {
       const matchingOriginalPlayer = this.originalPlayersComponentData1.find(originalPlayer => originalPlayer.id === eventPlayer.id);
       if (matchingOriginalPlayer) {
@@ -261,10 +293,7 @@ export class TradeComponent implements OnInit {
       }
     });
     this.originalPlayersComponentData1 = $event;
-    this.mapPlayersToRoster();
-  }
 
-  dataSourceChangeEvent2($event: PlayerRanking[]): void {
     $event.forEach(eventPlayer => {
       const matchingOriginalPlayer = this.originalPlayersComponentData2.find(originalPlayer => originalPlayer.id === eventPlayer.id);
       if (matchingOriginalPlayer) {
@@ -272,19 +301,25 @@ export class TradeComponent implements OnInit {
       }
     });
     this.originalPlayersComponentData2 = $event;
+
+    // Must update player component 2 to match player comp 1
+    this.playersComponent2.basedOn = this.playersComponent1.basedOn;
+    this.playersComponent2.selectedDataSource = this.playersComponent1.selectedDataSource;
+    this.playersComponent2.determineColorTable();
     this.mapPlayersToRoster();
   }
-
 
   // Adds all selected players to associated lists
   swapPlayers(): void {
     // Cannot trade with the same team
     if(this.selected.id !== this.selected2.id) {
       this.activeTrade = true;
-      // this.selectedPlayersRoster1 = [];
-      // this.selectedPlayersRoster2 = [];
-      // this.selectedPlayersPlayerComp1 = [];
-      // this.selectedPlayersPlayerComp2 = [];
+      if (this.originalPlayersComponentData1.length === 0) {
+        this.originalPlayersComponentData1 = [...this.playersComponent1.displayedData];  
+      }
+      if (this.originalPlayersComponentData2.length === 0) {
+        this.originalPlayersComponentData2 = [...this.playersComponent2.displayedData];
+      }
       // For the Roster view
       if (!this.rosterViewToggle) {
           // Get alls selected players to add to list
@@ -349,35 +384,37 @@ export class TradeComponent implements OnInit {
       //   column.isViewable = true;
       // }
     } else { // FANTASY VIEW
-      if (this.originalPlayersComponentData1.length === 0) {
-        this.originalPlayersComponentData1 = [...this.playersComponent1.displayedData];  
-      }
-      if (this.originalPlayersComponentData2.length === 0) {
-        this.originalPlayersComponentData2 = [...this.playersComponent2.displayedData];
-      }
-      // Switched to Detailed View
-      for (const column of this.playersComponent1.tableColumns) {
-        // Check if the column name matches any of the columns you want to hide
-        if (['minutesPerGame','totalRanking','adp','freeThrowsAttempted', 'freeThrowsMade', 'fieldGoalsAttempted', 'fieldGoalsMade','positionalRankings',
-        'onTeamId','offensiveRebounds','defensiveRebounds','threePointersAttempted','flagrantFouls','personalFouls'
-        ,'technicalFouls','rating','gamesPlayed','totalRating','ratingPerGame']
-        .includes(column.dataKey)) {
-          // Set isViewable to false for the matched columns
-          column.isViewable = false;
-        }
-      }
 
-      for (const column of this.playersComponent2.tableColumns) {
-        // Check if the column name matches any of the columns you want to hide
-        if (['minutesPerGame','totalRanking','adp','freeThrowsAttempted', 'freeThrowsMade', 'fieldGoalsAttempted', 'fieldGoalsMade','positionalRankings',
-        'onTeamId','offensiveRebounds','defensiveRebounds','threePointersAttempted','flagrantFouls','personalFouls'
-        ,'technicalFouls','rating','gamesPlayed','totalRating','ratingPerGame']
-        .includes(column.dataKey)) {
-          // Set isViewable to false for the matched columns
-          column.isViewable = false;
+        // Refreshes the original players component data
+        if (this.originalPlayersComponentData1.length === 0) {
+          this.originalPlayersComponentData1 = [...this.playersComponent1.displayedData];  
+        }
+        if (this.originalPlayersComponentData2.length === 0) {
+          this.originalPlayersComponentData2 = [...this.playersComponent2.displayedData];
+        }
+        // Switched to Detailed View
+        for (const column of this.playersComponent1.tableColumns) {
+          // Check if the column name matches any of the columns you want to hide
+          if (['minutesPerGame','totalRanking','adp','freeThrowsAttempted', 'freeThrowsMade', 'fieldGoalsAttempted', 'fieldGoalsMade','positionalRankings',
+          'onTeamId','offensiveRebounds','defensiveRebounds','threePointersAttempted','flagrantFouls','personalFouls'
+          ,'technicalFouls','rating','gamesPlayed','totalRating','ratingPerGame']
+          .includes(column.dataKey)) {
+            // Set isViewable to false for the matched columns
+            column.isViewable = false;
+          }
+        }
+
+        for (const column of this.playersComponent2.tableColumns) {
+          // Check if the column name matches any of the columns you want to hide
+          if (['minutesPerGame','totalRanking','adp','freeThrowsAttempted', 'freeThrowsMade', 'fieldGoalsAttempted', 'fieldGoalsMade','positionalRankings',
+          'onTeamId','offensiveRebounds','defensiveRebounds','threePointersAttempted','flagrantFouls','personalFouls'
+          ,'technicalFouls','rating','gamesPlayed','totalRating','ratingPerGame']
+          .includes(column.dataKey)) {
+            // Set isViewable to false for the matched columns
+            column.isViewable = false;
+          }
         }
       }
-    }
     // Update Columns, Triggers  ngOnChanges
     this.mapPlayersToRoster();
   }
