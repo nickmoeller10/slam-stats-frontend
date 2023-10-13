@@ -17,6 +17,7 @@ import { PlayerRanking } from 'src/app/models/player-ranking.model';
 })
 export class TradeComponent implements OnInit {
 
+  loading = false;
   rosterOptions: any[] = [];
   selected: any;
   selected2: any;
@@ -420,6 +421,7 @@ export class TradeComponent implements OnInit {
   }
 
   getRosters() {
+    this.loading = true;
     return this.playerService.getRosters().subscribe(res => {
       let rosters: any[] = [];
       res.forEach(roster => {
@@ -451,6 +453,7 @@ export class TradeComponent implements OnInit {
       this.selected2 = this.rosterOptions[1];
       this.onRosterChange1({ value: this.selected });
       this.onRosterChange2({ value: this.selected2 });
+      this.loading = false;
     });
   }
 

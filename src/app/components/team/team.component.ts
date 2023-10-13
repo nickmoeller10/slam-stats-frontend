@@ -15,6 +15,7 @@ import { PlayersComponent } from '../players/players.component';
   styleUrls: ['./team.component.scss']
 })
 export class TeamComponent implements OnInit {
+  loading = false;
   rosterOptions: any[] = [];
   selected: any;
   rosterViewToggle = false;
@@ -50,13 +51,16 @@ export class TeamComponent implements OnInit {
 
   mapPlayersToRoster(): void {
     // Updates the data source to current parameters
-    const dataSourceVal = this.playersComponent.selectedDataSource;
-    this.playersComponent.onDataSourceChange(dataSourceVal);
+    if (this.playersComponent != null) {
+      const dataSourceVal = this.playersComponent.selectedDataSource;
+      this.playersComponent.onDataSourceChange(dataSourceVal);
 
-    // Filters to the current team selected
+          // Filters to the current team selected
     this.playersComponent.displayedData = this.playersComponent.displayedData.filter(x => {
-      return x.onTeamId === this.selected.id; // Return true or false
-    });
+        return x.onTeamId === this.selected.id; // Return true or false
+      });
+    }
+
   }
 
   dataSourceChangeEvent(): void {
@@ -102,6 +106,7 @@ export class TeamComponent implements OnInit {
   }
 
   getRosters() {
+    this.loading = true;
     return this.playerService.getRosters().subscribe(res => {
       let rosters: any[] = [];
       res.forEach(roster => {
@@ -131,6 +136,7 @@ export class TeamComponent implements OnInit {
       this.rosterList = rosters;
       this.selected = this.rosterOptions[0];
       this.onRosterChange({ value: this.selected });
+      this.loading = false;
     });
   }
 

@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   @Output() responseEvent: EventEmitter<any> = new EventEmitter<any>();
   responseMessage = '';
   hasError = false;
+  loading = false;
   displayedColumns: string[] = ['playerId', 'position', 'fullName', 'jersey', 'team'];
   dataSource: MatTableDataSource<PlayerContainer> = new MatTableDataSource<PlayerContainer>();
   leagueConfig = {
@@ -71,17 +72,20 @@ export class HomeComponent implements OnInit {
     
   // Function to update league configuration
   updateLeague() {
+    this.loading = true; 
     this.leagueService.updateLeagueConfiguration(this.leagueConfig)
       .subscribe(
         data => {
         //  console.log('Configuration updated successfully');
           this.responseMessage = data.response.message;
           this.hasError = false;
+          this.loading = false;
         },
         error => {
           console.error('Error updating configuration', error);
           this.responseMessage = 'Failed to Create League';
           this.hasError = true;
+          this.loading = false;
         }
       );
   }

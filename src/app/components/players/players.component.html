@@ -29,8 +29,7 @@
   </div>
 </div>
 
-<!-- <app-player-table [displayedData]="displayedData" [visibleColumns]="visibleColumns" [standardDeviationColorTable]="standardDeviationColorTable"></app-player-table> -->
-
+<mat-spinner *ngIf="loading" class="loading-spinner"></mat-spinner>
 <app-crud-table
 [tableData]="displayedData" [isSelectable]="isSelectable" [hasFilter]="hasFilter" [tableColumns]="visibleColumns" [colorTable]="standardDeviationColorTable" [hasFooter]="hasFooter">
 </app-crud-table>

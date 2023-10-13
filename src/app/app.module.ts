@@ -42,6 +42,8 @@ import { PlayersComponent } from './components/players/players.component';
 import { LeagueComponent } from './components/league/league.component';
 import { TeamComponent } from './components/team/team.component';
 import { TradeComponent } from './components/trade/trade.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+
 
 @NgModule({
   declarations: [
@@ -98,6 +100,7 @@ import { TradeComponent } from './components/trade/trade.component';
     MatDialogModule,
     TextFieldModule,
     MatBadgeModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

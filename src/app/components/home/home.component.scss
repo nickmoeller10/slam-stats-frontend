@@ -26,3 +26,14 @@
   .card {
     padding-bottom: 1rem;
   }
+
+  .loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+mat-card {
+  background-color: white;
+}

@@ -17,24 +17,46 @@ export class PlayerService {
   public root = 'http://127.0.0.1:5000/'; // Local service
   //public root = 'https://slam-stats-backend.onrender.com/'; // Update with your Render backend URL
   public allPlayers: PlayerContainer[] = [];
-
+  public leagueInfo: string[] = [];
+  public rosters: any[] = [];
+  public fantasyStatTitles: string = '';
+  public standardDeviations: FantasyStats = {};
 
   getFantasyStatTitles(): Observable<string> {
-    const statTitles = this.httpClient.get<string>(this.root+'fantasy-stat-titles');
-    return statTitles;
+    if (this.fantasyStatTitles) {
+      // If data is already cached, return it as an observable
+      return new Observable<string>((observer) => {
+        observer.next(this.fantasyStatTitles);
+        observer.complete();
+      });
+    } else {
+      // If data is not cached, fetch it from the API
+      const apiUrl = '/fantasy-stat-titles';
+      return this.httpClient.get<string>(this.root + apiUrl).pipe(
+        tap((data: string) => {
+          this.fantasyStatTitles = data; // Cache the data
+        })
+      );
+    }
   }
-
-
+  
   getStandardDeviations(): Observable<FantasyStats> {
-    const standardDeviations = this.httpClient.get<FantasyStats>(this.root+'standard-deviations');
-    return standardDeviations;
+    if (JSON.stringify(this.standardDeviations) !== '{}') {
+      // If data is already cached, return it as an observable
+      return new Observable<FantasyStats>((observer) => {
+        observer.next(this.standardDeviations);
+        observer.complete();
+      });
+    } else {
+      // If data is not cached, fetch it from the API
+      const apiUrl = '/standard-deviations';
+      return this.httpClient.get<FantasyStats>(this.root + apiUrl).pipe(
+        tap((data: FantasyStats) => {
+          this.standardDeviations = data; // Cache the data
+        })
+      );
+    }
   }
-
-
-  // getPlayerInfo(): Observable<PlayerContainer[]> {
-  //   const players = this.httpClient.get<PlayerContainer[]>(this.root+'player-info');
-  //   return players;
-  // }
 
   // Method to fetch players data with caching
   getPlayerInfo(): Observable<PlayerContainer[]> {
@@ -55,16 +77,40 @@ export class PlayerService {
     }
   }
 
-
   getLeagueInfo(): Observable<string[]> {
-    const players = this.httpClient.get<string[]>(this.root+'league');
-    return players;
+    if (this.leagueInfo.length > 0) {
+      // If data is already cached, return it as an observable
+      return new Observable<string[]>((observer) => {
+        observer.next(this.leagueInfo);
+        observer.complete();
+      });
+    } else {
+      // If data is not cached, fetch it from the API
+      const apiUrl = '/league';
+      return this.httpClient.get<string[]>(this.root + apiUrl).pipe(
+        tap((data: string[]) => {
+          this.leagueInfo = data; // Cache the data
+        })
+      );
+    }
   }
-
-
+  
   getRosters(): Observable<any[][]> {
-    const rosters = this.httpClient.get<any[]>(this.root+'rosters');
-    return rosters;
+    if (this.rosters.length > 0) {
+      // If data is already cached, return it as an observable
+      return new Observable<any[][]>((observer) => {
+        observer.next(this.rosters);
+        observer.complete();
+      });
+    } else {
+      // If data is not cached, fetch it from the API
+      const apiUrl = '/rosters';
+      return this.httpClient.get<any[]>(this.root + apiUrl).pipe(
+        tap((data: any[]) => {
+          this.rosters = data; // Cache the data
+        })
+      );
+    }
   }
 }
 

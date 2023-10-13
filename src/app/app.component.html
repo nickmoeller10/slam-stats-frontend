@@ -2,10 +2,10 @@
   <button *ngIf="mode === 'mobile'" class="menu" mat-button (click)="sidenav.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
-  <img src="../assets/SLAMSTATS.png"  alt="NBA Logo" class="logo" *ngIf="mode !== 'desktop'">
+  <img src="../assets/SlamStats-White-Trans.png"  alt="NBA Logo" class="logo" *ngIf="mode !== 'desktop'">
   <ng-container *ngIf="mode === 'desktop'">
     
-    <img src="../assets/SLAMSTATS.png"  alt="NBA Logo" >
+    <img src="../assets/SlamStats-White-Trans.png"  alt="NBA Logo" class="logo">
     <div class="links">
       <a routerLink = "/">
         <button mat-button class="menu-button">
@@ -56,7 +56,7 @@
     <a routerLink = "/team">
       <button mat-button class="menu-button">
           <mat-icon>person</mat-icon>
-          <span>Your Team</span>
+          <span>Rosters</span>
       </button>
     </a>
     <a routerLink = "/league">
@@ -65,35 +65,34 @@
           <span>Your League</span>
       </button>
     </a>
-    <button mat-button class="menu-button">
-      <mat-icon>compare_arrows</mat-icon>
-      <span>Trade</span>
-    </button>
+    <a routerLink = "/trade">
+      <button mat-button class="menu-button">
+        <mat-icon>compare_arrows</mat-icon>
+        <span>Trade</span>
+      </button>
+    </a>
+    <!-- <a routerLink = "/trade">
+      <button mat-button class="menu-button">
+        <mat-icon>compare_arrows</mat-icon>
+        <span>Add/Drop</span>
+      </button>
+    </a> -->
     <a routerLink = "/players">
       <button mat-button class="menu-button">
         <mat-icon>group</mat-icon>
         <span>Players</span>
       </button>
     </a>
-    <button mat-button class="menu-button">
-      <mat-icon>group</mat-icon>
-      <span>Buy Low</span>
-    </button>
-    <button mat-button class="menu-button">
-      <mat-icon>group</mat-icon>
-      <span>Sell High</span>
-    </button>
   </mat-sidenav>
 
-
   <mat-sidenav-content>
+    <div class="content-wrapper">
       <div class="content">
         <router-outlet></router-outlet>
-      
       </div>
-      <footer class="footer">
-        <div class="footer-text">&copy; SlamStats</div>
-      </footer>
+    </div>
+    <footer class="footer">
+      <div class="footer-text">&copy; SlamStats</div>
+    </footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
-<!-- Footer -->

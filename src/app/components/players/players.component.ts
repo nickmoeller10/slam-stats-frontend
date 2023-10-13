@@ -11,6 +11,8 @@ import { CrudTableComponent } from 'src/app/widgets/crud-table/crud-table.compon
 import { FantasyStats } from 'src/app/models/fantasy-stats.model';
 import { ColorTable } from 'src/app/models/color-table.model';
 import { LeagueService } from 'src/app/services/league.service';
+import { Ratings } from 'src/app/models/ratings.model';
+import { SeasonalStats } from 'src/app/models/seasonal-stats.model';
 @Component({
   selector: 'app-players',
   templateUrl: './players.component.html',
@@ -26,7 +28,7 @@ export class PlayersComponent implements OnInit {
   @Input() displayDataSources = true;
   @Output() dataSourceChangeEvent: EventEmitter<PlayerRanking[]> = new EventEmitter<PlayerRanking[]>();
 
-
+  loading = false;
   displayedColumns: string[] = ['id', 'defaultPositionId', 'fullName', 'jersey', 'proTeamId'];
   dataSource: MatTableDataSource<PlayerContainer> = new MatTableDataSource<PlayerContainer>();
   selectedDataSource = 0;
@@ -411,6 +413,7 @@ export class PlayersComponent implements OnInit {
 
   getPlayers() {
     // If API needed:
+    this.loading = true;
     return this.playerService.getPlayerInfo().subscribe(res => {
       // const playersData = res.data;
       
@@ -1044,10 +1047,10 @@ export class PlayersComponent implements OnInit {
 
       this.displayedData = playerAvgRankingsListCurr;
       this.cdr.detectChanges();
+      this.loading = false;
     });
-
   }
-
+  
 
   onDataSourceChange($event: any) {
     let val = 0;

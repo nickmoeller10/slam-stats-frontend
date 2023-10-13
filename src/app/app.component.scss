@@ -1,7 +1,8 @@
 mat-toolbar {
-    // background: #002b5c;
-    // color: white;
-    background-color: white;
+
+    background: linear-gradient(to right, #fcae6d, #ff6b6b);
+
+    
     color: black;
 }
 
@@ -12,6 +13,9 @@ mat-toolbar {
 
 .logo {
     align-items: center;
+    width: 210px; /* Set the desired width */
+    height: auto; /* Maintain the aspect ratio by setting height to auto */
+    padding-left: 2rem;
 }
 
 .links {
@@ -33,7 +37,9 @@ mat-sidenav {
     margin: 16px;
     width: 200px;
     border-right: none;
-    background: white;
+    background: linear-gradient(to right, #fcae6d, #ff6b6b);
+
+   // background: white;
     color: black;
     border-radius: 10px;
     padding: 16px;
@@ -45,7 +51,7 @@ mat-divider {
 }
 
 mat-sidenav-content {
-    background-color: white;
+    background-color: #FBFCFE;
 }
 
 
@@ -57,6 +63,7 @@ mat-sidenav-content {
 
 .content {
     padding: 2rem;
+    flex-grow: 1;
     //height: 100%;
 }
 
@@ -73,8 +80,8 @@ mat-sidenav-container {
     justify-content: flex-start;
     font-size: 1rem;
     //background: #002b5c;
-    background-color: white;
-    color: black;
+    background-color: rgba(252, 174, 109, 0);   // background-color: white;
+    color: white;
     border: none;
 
     mat-icon {
@@ -86,17 +93,26 @@ mat-sidenav-container {
 a {
     text-decoration: none !important;
   }
+/* Define a CSS class for the content wrapper to fill the available space */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
 
-
-/* Footer Styles */
+  /* Footer Styles */
 .footer {
-    background-color: #333; /* Background color for the footer */
-    color: #fff; /* Text color */
-    padding: 10px 0; /* Padding to add space inside the footer */
-    text-align: center; /* Center-align text */
-    font-size: 14px; /* Font size */
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 14px;
     height: 65px;
+    /* Stick the footer to the bottom of the page */
+    position: relative;
+    bottom: 0;
+    width: 100%;
   }
 
   .footer-text {

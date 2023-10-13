@@ -1,6 +1,7 @@
 <div>
   <h1>Rosters</h1>
   <div class="flex">
+  <mat-spinner *ngIf="loading" class="loading-spinner"></mat-spinner>
   <mat-form-field appearance="fill">
       <mat-label>Select a team</mat-label>
       <mat-select [(value)]="selected" (selectionChange)="onRosterChange($event)">
