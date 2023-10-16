@@ -10,7 +10,7 @@
 
   .btn {
     color: white;
-    background-color: blue;
+    background-color: #008E97;
   }
 
   .image-container img{
@@ -25,6 +25,7 @@
 
   .card {
     padding-bottom: 1rem;
+
   }
 
   .loading-spinner {
@@ -36,4 +37,5 @@
 
 mat-card {
   background-color: white;
+  border: 1px solid black; 
 }

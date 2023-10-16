@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   };
   leagueId: string = '277919';
   //otherId: string = '33707030';
-  season: string = '2023';
+  season: string = '2024';
   swid: string = '{9C2B13E7-C1C7-4734-9499-E8D8896E49CA}';
   espnS2: string = 'AEBMTvPLwna58wR7w7GScMEoMK5SZDdc0UZWs7yFVE6hWxPuRv%2BUa7EabE0jGEb9Ksp7hUIru%2BcmI8AsEPvzoqb2pWAMYJXpowcSZfywo%2Bcrq41TTGSoiEdxTjnjCjoebOYWtLCSagGUiVX8%2BWT94fDfbhFk5TEtreHgh8CF%2FMv95%2B31YjDZj9kwPDTif3MOSAL14IJi%2FCmmQbcMToWY9iIFw9sJ4ggCBg1Qea9bHSJ8%2FkVkXi0RCsn0Q9gQJhkqD9vJqodAE%2BWHwGqmvEa5hkpo%2Bqh4k%2FJLJD3p1wGaLN8SBQ%3D%3D';
 //  others2: string = 'AECj%2FFRkE8Gws6WiW4ZxHdohJ9W2MklN9NenB9HIFmHA7MqfODnebLXRymHIwdRlb9R09lKUVDEvc40tAHfhokmRrEMGImunPE9YxSmLsbAevEzSQNMMydkCah40en1NY%2BUZ2DZuulkCcCrMQSPwII5v5icT2ZPvxhQxDESQ8mHzGeRBfm5UEzZoJV29lHPZvaGY6SOu7KcuvG8V2alCr3Eu1PoLkrjOI326c%2Fl%2FqbnTjya%2FzF%2F%2FvCUNWt8IAuTmo%2Fjx0HxJcV70LI3cOQ8B11Pt3YNDMsRi%2BC3UtASlA9JEeQ%3D%3D';

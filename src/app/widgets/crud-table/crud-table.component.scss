@@ -6,6 +6,7 @@
 
   tr.mat-header-row {
     height: 46px;
+   // background: linear-gradient(to right, #7851a9, #008E97);
   }
   
   
@@ -33,9 +34,12 @@
     padding-left: 5px !important;
     word-wrap: break-word;
     font-size: 14px;
-    color: black;
-    background-color: #DDDDDD;
-    border-right: 1px solid #CCCCCC;
+    font-weight: bold;
+    color: #000000;
+  //  background-color: #DDDDDD;
+    background-color: #c4ced4;
+    //background-color: #0C2340;
+    border-right: 1px solid black;
   }
   
   

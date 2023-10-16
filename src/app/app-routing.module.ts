@@ -5,6 +5,7 @@ import { LeagueComponent } from './components/league/league.component';
 import { PlayersComponent } from './components/players/players.component';
 import { TeamComponent } from './components/team/team.component';
 import { TradeComponent } from './components/trade/trade.component';
+import { BuildTeamComponent } from './components/build-team/build-team.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'trade',
     component: TradeComponent,
+  },
+  {
+    path: 'build-team',
+    component: BuildTeamComponent,
   },
 ];
 

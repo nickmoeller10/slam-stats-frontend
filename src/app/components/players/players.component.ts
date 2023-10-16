@@ -11,8 +11,7 @@ import { CrudTableComponent } from 'src/app/widgets/crud-table/crud-table.compon
 import { FantasyStats } from 'src/app/models/fantasy-stats.model';
 import { ColorTable } from 'src/app/models/color-table.model';
 import { LeagueService } from 'src/app/services/league.service';
-import { Ratings } from 'src/app/models/ratings.model';
-import { SeasonalStats } from 'src/app/models/seasonal-stats.model';
+
 @Component({
   selector: 'app-players',
   templateUrl: './players.component.html',
@@ -27,6 +26,8 @@ export class PlayersComponent implements OnInit {
   @Input() isSelectable = false;
   @Input() displayDataSources = true;
   @Output() dataSourceChangeEvent: EventEmitter<PlayerRanking[]> = new EventEmitter<PlayerRanking[]>();
+  @Output() playersComponentReady: EventEmitter<PlayerRanking[]> = new EventEmitter<PlayerRanking[]>();
+
 
   loading = false;
   displayedColumns: string[] = ['id', 'defaultPositionId', 'fullName', 'jersey', 'proTeamId'];
@@ -440,7 +441,8 @@ export class PlayersComponent implements OnInit {
     // this.leagueService.allPlayers.forEach(entry => {
       res.forEach(entry => {
         // Removes all players that do not have relevant stats
-        if (entry.ratings?.ratingsCurr.totalRanking != null && entry.ratings?.ratingsCurr.totalRanking !== 0) {
+
+        // if (entry.ratings?.ratingsCurr.totalRanking != null && entry.ratings?.ratingsCurr.totalRanking !== 0) {
           if (entry.player?.statContainer?.currentSeason?.stats && entry.player?.statContainer?.currentSeason?.averageStats) {
             const playerRankingCurr: PlayerRanking = {
               id: entry.id,
@@ -477,7 +479,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.currentSeason.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-              ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.stats[42]) * 100,
+              ratingPerGame: entry.ratings?.ratingsCurr.totalRating != null ? (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.stats[42]) * 100 : 0,
             }
             playerRankingsListCurr.push(playerRankingCurr);
           }
@@ -519,7 +521,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastFifteen.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-              ratingPerGame: (entry.ratings?.ratingsPrev15.totalRating / entry.player?.statContainer?.lastFifteen.stats[42]) * 100,
+              ratingPerGame: entry.ratings?.ratingsPrev15.totalRating != null ? (entry.ratings?.ratingsPrev15.totalRating / entry.player?.statContainer?.lastFifteen.stats[42]) * 100 : 0,
             }
             playerRankingsList15.push(playerRanking15);
           }
@@ -561,7 +563,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastSeven.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-              ratingPerGame: (entry.ratings?.ratingsPrev7.totalRating / entry.player?.statContainer?.lastSeven.stats[42]) * 100,
+              ratingPerGame: entry.ratings?.ratingsPrev7.totalRating != null ? (entry.ratings?.ratingsPrev7.totalRating / entry.player?.statContainer?.lastSeven.stats[42]) * 100 : 0,
             }
             playerRankingsList7.push(playerRanking7);
           }
@@ -615,9 +617,9 @@ export class PlayersComponent implements OnInit {
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsPrev30.positionalRanking,
-              totalRanking: entry.ratings?.ratingsPrev30.totalRanking,
-              totalRating: entry.ratings?.ratingsPrev30.totalRating,
+              positionalRankings: entry.ratings?.ratingsPrev30?.positionalRanking,
+              totalRanking: entry.ratings?.ratingsPrev30?.totalRanking,
+              totalRating: entry.ratings?.ratingsPrev30?.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.lastThirty.stats[0],
               blocks: entry.player?.statContainer?.lastThirty.stats[1],
@@ -645,7 +647,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastThirty.stats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-              ratingPerGame: (entry.ratings?.ratingsPrev30.totalRanking / entry.player?.statContainer?.lastThirty.stats[42]) * 100,
+              ratingPerGame: entry.ratings?.ratingsPrev30?.totalRanking != null ? (entry.ratings?.ratingsPrev30.totalRanking / entry.player?.statContainer?.lastThirty.stats[42]) * 100 : 0,
             }
             playerRankingsList30.push(playerRanking30);
           }
@@ -655,8 +657,8 @@ export class PlayersComponent implements OnInit {
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+              positionalRankings: entry.ratings?.ratingsCurr?.positionalRanking,
+              totalRanking: entry.ratings?.ratingsCurr?.totalRanking,
               //totalRating: entry.ratings?.ratingsCurr.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.seasonProjections.stats[0],
@@ -770,9 +772,11 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.currentSeason.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-              ratingPerGame: (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.averageStats[42]) * 100,
+              ratingPerGame: entry.ratings?.ratingsCurr.totalRating  != null ? (entry.ratings?.ratingsCurr.totalRating / entry.player?.statContainer?.currentSeason.averageStats[42]) * 100 : 0,
             }
             playerAvgRankingsListCurr.push(playerAvgRankingCurr);
+          } else {
+         //   console.log(entry.player?.fullName);
           }
 
 
@@ -812,7 +816,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastFifteen.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-              ratingPerGame: (entry.ratings?.ratingsPrev15.totalRating / entry.player?.statContainer?.lastFifteen.averageStats[42]) * 100,
+              ratingPerGame: entry.ratings?.ratingsPrev15.totalRating != null ? (entry.ratings?.ratingsPrev15.totalRating / entry.player?.statContainer?.lastFifteen.averageStats[42]) * 100 : 0,
             }
             playerAvgRankingsList15.push(playerAvgRanking15);
           }
@@ -854,7 +858,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastSeven.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-              ratingPerGame: ( entry.ratings?.ratingsPrev7.totalRating / entry.player?.statContainer?.lastSeven.averageStats[42]) * 100,
+              ratingPerGame: entry.ratings?.ratingsPrev7.totalRating  != null ?  (entry.ratings?.ratingsPrev7.totalRating / entry.player?.statContainer?.lastSeven.averageStats[42]) * 100 : 0,
             }
             playerAvgRankingsList7.push(playerAvgRanking7);
           }
@@ -908,9 +912,9 @@ export class PlayersComponent implements OnInit {
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsPrev30.positionalRanking,
-              totalRanking: entry.ratings?.ratingsPrev30.totalRanking,
-              totalRating: entry.ratings?.ratingsPrev30.totalRating,
+              positionalRankings: entry.ratings?.ratingsPrev30?.positionalRanking,
+              totalRanking: entry.ratings?.ratingsPrev30?.totalRanking,
+              totalRating: entry.ratings?.ratingsPrev30?.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.lastThirty.averageStats[0],
               blocks: entry.player?.statContainer?.lastThirty.averageStats[1],
@@ -938,7 +942,7 @@ export class PlayersComponent implements OnInit {
               gamesPlayed: entry.player?.statContainer?.lastThirty.averageStats[42],
               adp: entry.player?.ownership?.averageDraftPosition,
               eligiblePositionNames: this.mapEligiblePositions(entry.player?.eligibleSlots),
-              ratingPerGame: (entry.ratings?.ratingsPrev30.totalRating/ entry.player?.statContainer?.lastThirty.averageStats[42]) * 100,
+              ratingPerGame: entry.ratings?.ratingsPrev30?.totalRating != null ? (entry.ratings?.ratingsPrev30.totalRating / entry.player?.statContainer?.lastThirty.averageStats[42]) * 100 : 0,
             }
             playerAvgRankingsList30.push(playerAvgRanking30);
           }
@@ -948,8 +952,8 @@ export class PlayersComponent implements OnInit {
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+              positionalRankings: entry.ratings?.ratingsCurr?.positionalRanking,
+              totalRanking: entry.ratings?.ratingsCurr?.totalRanking,
               //totalRating: entry.ratings?.ratingsCurr.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.seasonProjections.averageStats[0],
@@ -990,8 +994,8 @@ export class PlayersComponent implements OnInit {
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
-              positionalRankings: entry.ratings?.ratingsCurr.positionalRanking,
-              totalRanking: entry.ratings?.ratingsCurr.totalRanking,
+              positionalRankings: entry.ratings?.ratingsCurr?.positionalRanking,
+              totalRanking: entry.ratings?.ratingsCurr?.totalRanking,
              // totalRating: entry.ratings?.ratingsCurr.totalRating,
               fullName: entry.player?.fullName,
               points: entry.player?.statContainer?.prevSeasonProjections.averageStats[0],
@@ -1024,7 +1028,10 @@ export class PlayersComponent implements OnInit {
             }
             playerAvgRankingsListPrevProj.push(playerAvgRankingPrevProj);
           }
-        }
+       // } 
+        //else {
+          // console.log(entry.player?.fullName);
+       // }
       })
       // TOTALS
       this.playerRankingsDataCurr = playerRankingsListCurr;
@@ -1046,6 +1053,7 @@ export class PlayersComponent implements OnInit {
       this.playerAvgRankingsDataPrevProj = playerAvgRankingsListPrevProj;
 
       this.displayedData = playerAvgRankingsListCurr;
+      this.playersComponentReady.emit(this.displayedData);
       this.cdr.detectChanges();
       this.loading = false;
     });
