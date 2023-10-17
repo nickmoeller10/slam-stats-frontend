@@ -80,6 +80,9 @@ export class HomeComponent implements OnInit {
           this.responseMessage = data.response.message;
           this.hasError = false;
           this.loading = false;
+          // Reload the page
+       //   window.location.reload();
+
         },
         error => {
           console.error('Error updating configuration', error);

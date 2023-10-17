@@ -11,6 +11,7 @@ import { CrudTableComponent } from 'src/app/widgets/crud-table/crud-table.compon
 import { FantasyStats } from 'src/app/models/fantasy-stats.model';
 import { ColorTable } from 'src/app/models/color-table.model';
 import { LeagueService } from 'src/app/services/league.service';
+import { Team } from 'src/app/models/team.model';
 
 @Component({
   selector: 'app-players',
@@ -32,7 +33,7 @@ export class PlayersComponent implements OnInit {
   loading = false;
   displayedColumns: string[] = ['id', 'defaultPositionId', 'fullName', 'jersey', 'proTeamId'];
   dataSource: MatTableDataSource<PlayerContainer> = new MatTableDataSource<PlayerContainer>();
-  selectedDataSource = 0;
+  selectedDataSource = 4; // Initialize on projections
   fantasyViewToggle = false;
   currentSeason = 2024 - 1; // Current Season
   dataSourceOptions: {id: number, value: string}[];
@@ -77,19 +78,18 @@ export class PlayersComponent implements OnInit {
   public tableColumns: TableColumn[] = [];
   public visibleColumns: TableColumn[] = [];
 
-
   constructor(private readonly playerService: PlayerService, private cdr: ChangeDetectorRef, private leagueService: LeagueService,
     private fb: FormBuilder) {
       if (this.leagueService.season) {
         this.currentSeason = this.leagueService.season - 1 ;
       }
       this.dataSourceOptions = [{id:0, value: '' + this.currentSeason + '-' + (this.currentSeason + 1).toString().slice(-2) + ' Regular Season'},
+      {id:4, value:  '' + this.currentSeason + '-' + (this.currentSeason + 1).toString().slice(-2) + ' ROS Projections'}, 
       {id:1, value:'Last 7 Days'}, 
       {id:2,value:'Last 15 Days'},
       {id:3, value:'Last 30 Days'}, 
-      {id:4, value:  '' + this.currentSeason + '-' + (this.currentSeason + 1).toString().slice(-2) + ' Regular Season Projections'}, 
       {id:5, value: '' + (this.currentSeason - 1).toString() + '-' + (this.currentSeason).toString().slice(-2) + ' Regular Season'}, 
-      {id:6, value: '' + (this.currentSeason - 1).toString() + '-' + (this.currentSeason).toString().slice(-2) + ' Regular Season Projections'}];
+      {id:6, value: '' + (this.currentSeason - 1).toString() + '-' + (this.currentSeason).toString().slice(-2) + ' ROS Projections'}];
   }
 
 
@@ -99,7 +99,6 @@ export class PlayersComponent implements OnInit {
     this.initColumns();
     this.visibleColumns = this.tableColumns.filter(column => column.isViewable !== false);
   }
-
 
   getStandardDeviations() {
     return this.playerService.getStandardDeviations().subscribe(
@@ -1052,7 +1051,7 @@ export class PlayersComponent implements OnInit {
       this.playerAvgRankingsDataProj = playerAvgRankingsListProj;
       this.playerAvgRankingsDataPrevProj = playerAvgRankingsListPrevProj;
 
-      this.displayedData = playerAvgRankingsListCurr;
+      this.displayedData = playerAvgRankingsListProj;
       this.playersComponentReady.emit(this.displayedData);
       this.cdr.detectChanges();
       this.loading = false;
@@ -1062,10 +1061,10 @@ export class PlayersComponent implements OnInit {
 
   onDataSourceChange($event: any) {
     let val = 0;
-    if ($event.value) {
-      val = $event.value;
-    } else {
+    if (typeof $event === 'number') {
       val = $event;
+    } else {
+      val = $event.value;
     }
     if (this.basedOn === 'Totals') {
       switch (val) {
@@ -1146,7 +1145,7 @@ export class PlayersComponent implements OnInit {
     this.determineColorTable(); 
 
     // Emits for the team component
-    if (this.source === 'team' || this.source ==='trade') {
+    if (this.source === 'team' || this.source ==='trade' || this.source === 'build-team') {
       this.dataSourceChangeEvent.emit(this.displayedData);
     }
   }
@@ -1233,7 +1232,7 @@ export class PlayersComponent implements OnInit {
 
 
     // Emits for the team component
-    if (this.source === 'team' || this.source === 'trade') {
+    if (this.source === 'team' || this.source === 'trade' || this.source === 'build-team') {
       this.dataSourceChangeEvent.emit(this.displayedData);
     }
   }
@@ -1440,4 +1439,11 @@ export class PlayersComponent implements OnInit {
       },
     ];
   }
+
+  private convertToPercentage(value: number) {
+    let num = value*100;
+    num = Number(num.toPrecision(5));
+    return num;
+  }
+
 }

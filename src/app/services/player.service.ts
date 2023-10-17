@@ -31,7 +31,7 @@ export class PlayerService {
       });
     } else {
       // If data is not cached, fetch it from the API
-      const apiUrl = '/fantasy-stat-titles';
+      const apiUrl = 'fantasy-stat-titles';
       return this.httpClient.get<string>(this.root + apiUrl).pipe(
         tap((data: string) => {
           this.fantasyStatTitles = data; // Cache the data
@@ -49,7 +49,7 @@ export class PlayerService {
       });
     } else {
       // If data is not cached, fetch it from the API
-      const apiUrl = '/standard-deviations';
+      const apiUrl = 'standard-deviations';
       return this.httpClient.get<FantasyStats>(this.root + apiUrl).pipe(
         tap((data: FantasyStats) => {
           this.standardDeviations = data; // Cache the data
@@ -68,7 +68,7 @@ export class PlayerService {
       });
     } else {
       // If data is not cached, fetch it from the API
-      const apiUrl = '/player-info';
+      const apiUrl = 'player-info';
       return this.httpClient.get<PlayerContainer[]>(this.root + apiUrl).pipe(
         tap((data: PlayerContainer[]) => {
           this.allPlayers = data; // Cache the data
@@ -86,7 +86,7 @@ export class PlayerService {
       });
     } else {
       // If data is not cached, fetch it from the API
-      const apiUrl = '/league';
+      const apiUrl = 'league';
       return this.httpClient.get<string[]>(this.root + apiUrl).pipe(
         tap((data: string[]) => {
           this.leagueInfo = data; // Cache the data
@@ -104,7 +104,7 @@ export class PlayerService {
       });
     } else {
       // If data is not cached, fetch it from the API
-      const apiUrl = '/rosters';
+      const apiUrl = 'rosters';
       return this.httpClient.get<any[]>(this.root + apiUrl).pipe(
         tap((data: any[]) => {
           this.rosters = data; // Cache the data

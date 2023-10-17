@@ -18,7 +18,8 @@ export class BuildTeamComponent implements OnInit, AfterViewInit {
   public searchedPlayers: PlayerRanking[] = [];
   public searchQuery: string = '';
   public searchResults: PlayerRanking[] = [];
-  filteredPlayers: PlayerRanking[] = [];
+  public filteredPlayers: PlayerRanking[] = [];
+  public addedPlayers: PlayerRanking[] = [];
   playerToAdd: PlayerRanking | undefined;
 
   private playersComponentReady = false;
@@ -55,6 +56,22 @@ export class BuildTeamComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onDataSourceChange(data: PlayerRanking[]) {
+    // Update original data source
+    this.originalPlayersDataComponent = [...data]; 
+
+    data = data.filter(dataItem => {
+      return this.addedPlayers.some(addedPlayer => addedPlayer.id === dataItem.id);
+    });
+
+    this.playersComponent.displayedData = [...data];
+
+    // // Filter to be already selected players
+    // this.playersComponent.displayedData = data.filter(x => {
+    //   return this.addedPlayers.includes(x) // Return true or false
+    // });
+  }
+
   searchPlayers() {
     // Filter the players based on the searchQuery
     this.filteredPlayers = this.originalPlayersDataComponent.filter((player) =>
@@ -89,6 +106,9 @@ export class BuildTeamComponent implements OnInit, AfterViewInit {
       // Clear the search input and results
       this.searchQuery = '';
       this.searchResults = [];
+
+      
+      this.addedPlayers = [...this.playersComponent.displayedData];
       this.cdRef.detectChanges();
     }
   }

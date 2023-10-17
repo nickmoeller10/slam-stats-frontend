@@ -28,6 +28,7 @@ export class CrudTableComponent implements OnInit {
   @Input() tableColumns: TableColumn[] = [];
   @Input()
   displayedColumns!: string[];
+  
   @Input() paginationSizes: number[] = [10, 20, 50, 100];
   @Input() colorTable: ColorTable = {};
   totalRows = 10;
@@ -342,4 +343,25 @@ export class CrudTableComponent implements OnInit {
     }
     return value;
   }
+
+  exportToCSV(): void {
+    const data = this.tableDataSource.data as any[]; // Use 'any' type assertion
+  
+    const dataForCSV = [this.tableColumns.map(column => column.name)]; // Use column names as the first row
+    data.forEach(row => {
+      const rowData = this.tableColumns.map(column => row[column.dataKey]);
+      dataForCSV.push(rowData);
+    });
+  
+    const csvContent = 'data:text/csv;charset=utf-8,' + dataForCSV.map(e => e.join(',')).join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'table_export.csv';
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+  
+  
 }

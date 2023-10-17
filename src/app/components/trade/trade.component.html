@@ -19,8 +19,9 @@
             <app-crud-table  #roster1 [hidden]="rosterViewToggle" [isSelectable]="true"
             [tableData]="displayedData" [tableColumns]="visibleColumns">
             </app-crud-table>
-            <app-players [displayDataSources]="true" [isSelectable]="true" [displayViewToggle]="false" [hasFilter]="false"  #playersComponent1 [hasFooter]="true" [hidden]="!rosterViewToggle"
-             [source]="'trade'" (dataSourceChangeEvent)="dataSourceChangeEvent($event)"></app-players>
+            <app-players [displayDataSources]="true" [isSelectable]="true" [displayViewToggle]="false" [hasFilter]="false"  #playersComponent1 
+            [hasFooter]="true" [hidden]="!rosterViewToggle"
+            [source]="'trade'" (dataSourceChangeEvent)="dataSourceChangeEvent($event)"></app-players>
         </div>
         <div class="trade-button-container">
             <button mat-button class="menu-button" (click)="swapPlayers()">
@@ -40,7 +41,8 @@
             <app-crud-table #roster2 [hidden]="rosterViewToggle" [isSelectable]="true"
             [tableData]="displayedData2" [tableColumns]="visibleColumns">
             </app-crud-table>  
-            <app-players [displayDataSources]="false" [displayViewToggle]="false" [isSelectable]="true" [hasFilter]="false" #playersComponent2 [hasFooter]="true" [hidden]="!rosterViewToggle" 
+            <app-players [displayDataSources]="false" [displayViewToggle]="false" [isSelectable]="true" [hasFilter]="false" #playersComponent2
+             [hasFooter]="true" [hidden]="!rosterViewToggle" 
             [source]="'trade'"></app-players> 
         </div>
 

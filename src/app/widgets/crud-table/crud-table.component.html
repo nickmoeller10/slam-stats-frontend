@@ -37,11 +37,8 @@
             {{getTotal(tableColumn.dataKey)}}
           </ng-container>
         </td>
-
-    
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"
         [class.mat-selected-row]="isSelected(row)"
         [class.mat-deselected-row]="!isSelected(row)"
@@ -50,9 +47,6 @@
       <ng-container  *ngIf="hasFooter">
         <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
       </ng-container>
-
-            <!-- Footer for totals -->
-    
 
       <!-- Row shown when there is no matching data. -->
       <tr class="mat-row" *matNoDataRow>
@@ -63,3 +57,6 @@
   
     <mat-paginator [pageSizeOptions]="[50,100,200]" aria-label="Select page of users"></mat-paginator>
   </div>
+
+  <!-- Export button
+<button (click)="exportToCSV()">Export to CSV</button> -->

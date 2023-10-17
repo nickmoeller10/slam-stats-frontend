@@ -74,9 +74,11 @@ export class TeamComponent implements OnInit {
     if ($event.value != null) {
       this.selected = $event.value;
       this.rosterList.forEach(roster => {
-        if(roster[0].onTeamId === $event.value.id) {
-          this.parsePlayerData(roster);
-          this.displayedData = roster;
+        if (roster.length > 0) {
+          if(roster[0].onTeamId === $event.value.id) {
+            this.parsePlayerData(roster);
+            this.displayedData = roster;
+          }
         }
       })
       this.mapPlayersToRoster();
