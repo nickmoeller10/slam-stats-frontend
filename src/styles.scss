@@ -58,9 +58,15 @@ $mock-draft-front-theme: mat.define-light-theme((
 @include mat.all-component-themes($mock-draft-front-theme);
 
 /* You can add global styles to this file, and also import other style files */
-html, app-root, table, td, h1, h2, h3, input, span {
+html, app-root, table, td, h1, h2, h3, span {
   font-family: 'Montserrat', sans-serif !important;
   height: 100%;
+  margin: 0;
+}
+
+input {
+  font-family: 'Montserrat', sans-serif !important;
+ // height: 100%;
   margin: 0;
 }
 

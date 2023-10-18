@@ -1,9 +1,12 @@
 
 <h1>Build Your Team</h1>
 <div class="page-container">
+  <div class="cards-container">
     <mat-card class="search-section">
+      <div class="flex">
         <button mat-button (click)="addPlayer()" class="btn">Add Player</button>
-
+        <button mat-button (click)="removePlayer()" class="btn-remove">Remove Player</button>
+      </div>
         <div style="padding-top: 1rem;">Search for Player</div>
         <input [(ngModel)]="searchQuery" placeholder="Enter player name" (input)="searchPlayers()" class="search-input">
         <div *ngIf="filteredPlayers.length > 0" class="autocomplete-card">
@@ -15,10 +18,15 @@
         <div *ngIf="playerToAdd" class="player-to-add">
         Player To Add: {{ playerToAdd.fullName }}
         </div>
-    </mat-card>
 
-    <div class="players-section">
-        <app-players #playersComponent (dataSourceChangeEvent)="onDataSourceChange($event)" (playersComponentReady)="onPlayersComponentReady($event)" [hasFooter]="true" [source]="'build-team'" [hasFilter]="true"></app-players>
-    </div>
+    </mat-card>
+  </div>
+    
+
+  <div class="players-section">
+      <app-players #playersComponent [isSelectable]="true" (dataSourceChangeEvent)="onDataSourceChange($event)" 
+      (playersComponentReady)="onPlayersComponentReady($event)" [hasFooter]="true" [source]="'build-team'"
+        [hasFilter]="true"></app-players>
+  </div>
 </div>
   

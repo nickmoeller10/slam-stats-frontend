@@ -98,19 +98,43 @@ export class BuildTeamComponent implements OnInit, AfterViewInit {
     // Check if there are search results
     if (this.searchResults.length > 0) {
 
+        // Filter out players that are already in the addedPlayers array
+      const newPlayers = this.searchResults.filter((player) => {
+        return !this.addedPlayers.some((addedPlayer) => addedPlayer.id === player.id);
+      });
+
       this.playersComponent.displayedData = [
         ...this.playersComponent.displayedData,
-        ...this.searchResults
+        ...newPlayers
       ];
       
       // Clear the search input and results
       this.searchQuery = '';
       this.searchResults = [];
-
       
       this.addedPlayers = [...this.playersComponent.displayedData];
       this.cdRef.detectChanges();
     }
   }
+
+  removePlayer() {
+    // Get the selected player IDs
+    const selectedPlayerIds = this.playersComponent.crudTableComponent.selectedRows.map(player => player.id);
+  
+    // Filter the displayed data to remove the selected players
+    this.playersComponent.displayedData = this.playersComponent.displayedData.filter(player =>
+      !selectedPlayerIds.includes(player.id)
+    );
+  
+    // Clear the selected rows
+    this.playersComponent.crudTableComponent.selectedRows = [];
+  
+    // Optionally, you can also update the addedPlayers array if needed
+    this.addedPlayers = this.playersComponent.displayedData;
+  
+    // Call change detection to update the view
+    this.cdRef.detectChanges();
+  }
+  
 
 }

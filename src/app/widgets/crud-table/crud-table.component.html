@@ -18,6 +18,10 @@
   
         <!-- column data -->
         <td mat-cell *matCellDef="let element; let i = index" [style.white-space]="'nowrap'" [style.background-color]="getColorBasedOnValue(element, tableColumn.dataKey)">
+          <ng-container *ngIf="element[tableColumn.dataKey] == null || element[tableColumn.dataKey] === undefined">
+            {{0.0}}
+          </ng-container>
+
           <ng-container *ngIf="!tableColumn.inputType">
             {{element[tableColumn.dataKey]}}
           </ng-container>

@@ -35,10 +35,11 @@ export class PlayersComponent implements OnInit {
   dataSource: MatTableDataSource<PlayerContainer> = new MatTableDataSource<PlayerContainer>();
   selectedDataSource = 4; // Initialize on projections
   fantasyViewToggle = false;
-  currentSeason = 2024 - 1; // Current Season
+  currentSeason = localStorage.getItem('season') ? Number(localStorage.getItem('season'))-1 : 2024-1;
   dataSourceOptions: {id: number, value: string}[];
 
   totalOrAverages = ['Averages', 'Totals']
+  //gamesPerWeek = 40;
   basedOn = 'Averages'
 
 
@@ -80,9 +81,6 @@ export class PlayersComponent implements OnInit {
 
   constructor(private readonly playerService: PlayerService, private cdr: ChangeDetectorRef, private leagueService: LeagueService,
     private fb: FormBuilder) {
-      if (this.leagueService.season) {
-        this.currentSeason = this.leagueService.season - 1 ;
-      }
       this.dataSourceOptions = [{id:0, value: '' + this.currentSeason + '-' + (this.currentSeason + 1).toString().slice(-2) + ' Regular Season'},
       {id:4, value:  '' + this.currentSeason + '-' + (this.currentSeason + 1).toString().slice(-2) + ' ROS Projections'}, 
       {id:1, value:'Last 7 Days'}, 

@@ -35,6 +35,7 @@ export class CrudTableComponent implements OnInit {
   @Input() hasFooter = false;
   @Input() hasFilter = false;
   @Input() isSelectable = false;
+  @Input() basedOn = 'Averages';
 
   public tableDataSource = new MatTableDataSource();
   public selectedRows: any[] = [];
@@ -71,7 +72,7 @@ export class CrudTableComponent implements OnInit {
         let totalFgms = fgsMade.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
 
         // Divides the totals
-        const percentage = (totalFgms / totalFgas) * 100;
+        const percentage = totalFgas === 0 ? 0 : (totalFgms / totalFgas) * 100;
 
         // Convert to percentage
         const num = Number(percentage.toFixed(2));
@@ -86,7 +87,7 @@ export class CrudTableComponent implements OnInit {
         let totalFtms = ftsMade.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
 
         // Divides the totals
-        const percentage = (totalFtms / totalFtas) * 100;
+        const percentage = totalFtas === 0 ? 0 : (totalFtms / totalFtas) * 100;
 
         // Convert to percentage
         const num = Number(percentage.toFixed(2));
@@ -97,8 +98,13 @@ export class CrudTableComponent implements OnInit {
         if (!valuesArray.includes(undefined)) {
           total = valuesArray.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0)
           if (!Number.isInteger(total)) {
+
             total = total.toFixed(2)
           } 
+        }
+
+        if (valuesArray.length > 0 && this.basedOn === 'Averages') {
+          total = (total / valuesArray.length).toFixed(2);
         }
       }
     }
@@ -270,6 +276,11 @@ export class CrudTableComponent implements OnInit {
             },
           };
           
+          // Null check 
+          if (pctState === '' || volState === '') {
+            return null;
+          }
+
           // Assigns the combined state to the new state
           let currentState = stateMatrix[pctState][volState];
           if (currentState === 'elite') {
@@ -332,7 +343,7 @@ export class CrudTableComponent implements OnInit {
   convertToPercentage(value: any) {
     if (value != null) {
       let num = 0;
-      if (value < 1) {
+      if (value <= 1) {
         num = value*100;
       } else {
         num = value
@@ -362,6 +373,5 @@ export class CrudTableComponent implements OnInit {
     a.click();
     window.URL.revokeObjectURL(url);
   }
-  
-  
+
 }

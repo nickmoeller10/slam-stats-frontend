@@ -19,6 +19,13 @@
     </mat-form-field>
   </div>
 
+  <!-- <div [hidden]="!displayDataSources">
+    <mat-form-field class="numeric-incrementer">
+      <mat-label>Games/Week</mat-label>
+      <input matInput type="number" [(ngModel)]="gamesPerWeek">
+    </mat-form-field>
+  </div> -->
+
    <!-- For Spacing -->
   <div *ngIf="!displayDataSources"></div>
 
@@ -31,5 +38,5 @@
 
 <mat-spinner *ngIf="loading" class="loading-spinner"></mat-spinner>
 <app-crud-table
-[tableData]="displayedData" [isSelectable]="isSelectable" [hasFilter]="hasFilter" [tableColumns]="visibleColumns" [colorTable]="standardDeviationColorTable" [hasFooter]="hasFooter">
+[tableData]="displayedData" [basedOn]="basedOn" [isSelectable]="isSelectable" [hasFilter]="hasFilter" [tableColumns]="visibleColumns" [colorTable]="standardDeviationColorTable" [hasFooter]="hasFooter">
 </app-crud-table>

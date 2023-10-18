@@ -77,12 +77,11 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
         //  console.log('Configuration updated successfully');
+          this.leagueService.season = Number(this.leagueConfig.season);
+          this.season = this.leagueConfig.season;
           this.responseMessage = data.response.message;
           this.hasError = false;
           this.loading = false;
-          // Reload the page
-       //   window.location.reload();
-
         },
         error => {
           console.error('Error updating configuration', error);
