@@ -437,12 +437,14 @@ export class PlayersComponent implements OnInit {
 
     // this.leagueService.allPlayers.forEach(entry => {
       res.forEach(entry => {
+        
         // Removes all players that do not have relevant stats
 
         // if (entry.ratings?.ratingsCurr.totalRanking != null && entry.ratings?.ratingsCurr.totalRanking !== 0) {
           if (entry.player?.statContainer?.currentSeason?.stats && entry.player?.statContainer?.currentSeason?.averageStats) {
             const playerRankingCurr: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -485,6 +487,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.lastFifteen?.stats && entry.player?.statContainer?.lastFifteen?.averageStats) {
             const playerRanking15: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -527,6 +530,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.lastSeven?.stats && entry.player?.statContainer?.lastSeven?.averageStats) {
             const playerRanking7: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -569,6 +573,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.prevSeason?.stats && entry.player?.statContainer?.prevSeason?.averageStats) {
             const playerRankingPrev: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -611,6 +616,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.lastThirty?.stats && entry.player?.statContainer?.lastThirty?.averageStats) {
             const playerRanking30: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -651,6 +657,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.seasonProjections?.stats && entry.player?.statContainer?.seasonProjections?.averageStats) {
             const playerRankingProj: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -693,6 +700,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.prevSeasonProjections?.stats && entry.player?.statContainer?.prevSeasonProjections?.averageStats) {
             const playerRankingPrevProj: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -736,6 +744,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.currentSeason?.averageStats ) {
             const playerAvgRankingCurr: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -780,6 +789,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.lastFifteen?.averageStats) {
             const playerAvgRanking15: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -822,6 +832,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.lastSeven?.averageStats) {
             const playerAvgRanking7: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -864,6 +875,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.prevSeason?.averageStats) {
             const playerAvgRankingPrev: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -906,6 +918,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.lastThirty?.averageStats) {
             const playerAvgRanking30: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -946,6 +959,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.seasonProjections?.averageStats) {
             const playerAvgRankingProj: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -988,6 +1002,7 @@ export class PlayersComponent implements OnInit {
           if (entry.player?.statContainer?.prevSeasonProjections?.averageStats) {
             const playerAvgRankingPrevProj: PlayerRanking = {
               id: entry.id,
+              rank: entry.player?.draftRanksByRankType?.STANDARD?.rank,
               onTeamId: entry.onTeamId,
               proTeamId: entry.player?.proTeamId,
               defaultPositionId: entry.player?.defaultPositionId,
@@ -1239,8 +1254,8 @@ export class PlayersComponent implements OnInit {
   private initColumns(): void  {
     this.tableColumns = [
       {
-        name: 'R#',
-        dataKey: 'totalRanking',
+        name: 'Rank',
+        dataKey: 'rank',
         isViewable: true,
       },
       {
@@ -1427,6 +1442,11 @@ export class PlayersComponent implements OnInit {
         name: 'ESPN Rating',
         dataKey: 'totalRating',
         inputType: 'float',
+        isViewable: true,
+      },
+      {
+        name: 'R#',
+        dataKey: 'totalRanking',
         isViewable: true,
       },
       {

@@ -1,4 +1,4 @@
-import { DraftRanks } from "./draft-ranks.model";
+import { DraftRanks, LeagueType } from "./draft-ranks.model";
 import { Ownership } from "./ownership.model";
 import { RatingsContainer } from "./ratings-container.model";
 import { StatContainer } from "./stats-container.model";
@@ -8,7 +8,7 @@ export interface Player {
     defaultPositionId?: number;
     defaultPositionName?: string;
     eligiblePositionNames?: string;
-    draftRanksByType?: DraftRanks[];
+    draftRanksByRankType?: LeagueType;
     droppable?: boolean;
     eligibleSlots?: number[];
     firstName?: string;

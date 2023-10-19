@@ -35,4 +35,5 @@ export interface PlayerRanking {
     gamesPlayed?: number //42
     adp?:  number
     ratingPerGame?: number;
+    rank?: number;
 };
