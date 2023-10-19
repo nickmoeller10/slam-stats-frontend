@@ -95,6 +95,11 @@ export class CrudTableComponent implements OnInit {
       } else {
         // For all other categories, find sum
         const valuesArray = this.tableDataSource.filteredData.map((item: any) => item[dataKey]);
+        valuesArray.forEach((val, index) => {
+          if (val == null || val === undefined) {
+              valuesArray[index] = 0;
+          }
+        });
         if (!valuesArray.includes(undefined)) {
           total = valuesArray.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0)
           if (!Number.isInteger(total)) {
