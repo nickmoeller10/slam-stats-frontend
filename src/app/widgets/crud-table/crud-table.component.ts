@@ -68,8 +68,22 @@ export class CrudTableComponent implements OnInit {
         const fgsMade = this.tableDataSource.filteredData.map((item: any) => item['fieldGoalsMade']);
 
         // Totals of both FGA and FGM
-        let totalFgas = fgAttempts.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
-        let totalFgms = fgsMade.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
+        let totalFgas = fgAttempts.reduce((accumulator: number, currentValue: number | null | undefined) => {
+          if (currentValue !== null && currentValue !== undefined) {
+            return accumulator + currentValue;
+          } else {
+            return accumulator;
+          }
+        }, 0);
+        
+        let totalFgms = fgsMade.reduce((accumulator: number, currentValue: number | null | undefined) => {
+          if (currentValue !== null && currentValue !== undefined) {
+            return accumulator + currentValue;
+          } else {
+            return accumulator;
+          }
+        }, 0);
+        
 
         // Divides the totals
         const percentage = totalFgas === 0 ? 0 : (totalFgms / totalFgas) * 100;
@@ -83,8 +97,21 @@ export class CrudTableComponent implements OnInit {
         const ftsMade = this.tableDataSource.filteredData.map((item: any) => item['freeThrowsMade']);
 
         // Totals of both FGA and FGM
-        let totalFtas = ftAttempts.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
-        let totalFtms = ftsMade.reduce((accumulator: number, currentValue: number) => accumulator + currentValue, 0);
+        let totalFtas = ftAttempts.reduce((accumulator: number, currentValue: number | null | undefined) => {
+          if (currentValue !== null && currentValue !== undefined) {
+            return accumulator + currentValue;
+          } else {
+            return accumulator;
+          }
+        }, 0);
+        
+        let totalFtms = ftsMade.reduce((accumulator: number, currentValue: number | null | undefined) => {
+          if (currentValue !== null && currentValue !== undefined) {
+            return accumulator + currentValue;
+          } else {
+            return accumulator;
+          }
+        }, 0);
 
         // Divides the totals
         const percentage = totalFtas === 0 ? 0 : (totalFtms / totalFtas) * 100;

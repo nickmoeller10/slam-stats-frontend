@@ -14,7 +14,7 @@ export class PlayerService {
   constructor(private httpClient: HttpClient) { }
 
 
- // public root = 'http://127.0.0.1:5000/'; // Local service
+  //public root = 'http://127.0.0.1:5000/'; // Local service
   public root = 'https://slam-stats-backend.onrender.com/'; // Update with your Render backend URL
   public allPlayers: PlayerContainer[] = [];
   public leagueInfo: string[] = [];
