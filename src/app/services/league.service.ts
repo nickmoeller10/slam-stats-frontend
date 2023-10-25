@@ -10,7 +10,7 @@ import { PlayerContainer } from '../models/player-container.model';
 export class LeagueService {
   //public root = 'http://127.0.0.1:5000/'; // Local service
   public allPlayers: PlayerContainer[] = [];
-  public root = 'https://slam-stats-backend.onrender.com/'; // Update with your Render backend URL
+  public root = 'https://slam-stats-backend.onrender.com'; // Update with your Render backend URL
 
 
   constructor(private http: HttpClient) { }
